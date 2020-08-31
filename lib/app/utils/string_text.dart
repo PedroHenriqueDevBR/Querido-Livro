@@ -11,8 +11,8 @@ class StringText {
   // Dashboard data
   String registered = 'Livros cadastrados';
   String reading = 'Em leitura';
-  String borrowed = 'Livros emprestados';
-  String received = 'Livros recebidos';
+  String borrowed = 'Livro emprestado';
+  String received = 'Livro recebido';
 
   // NavigationBar
   String home = 'Home';
@@ -30,7 +30,7 @@ class StringText {
       // Dashboard data
       this.registered = 'Registered books';
       this.reading = 'Reading';
-      this.borrowed = 'Borrowed books';
+      this.borrowed = 'Borrowed book';
       this.received = 'Received book';
 
       // NavigationBar
