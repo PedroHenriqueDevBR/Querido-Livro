@@ -4,6 +4,7 @@ import 'package:meu_querido_livro/app/utils/string_text.dart';
 import 'package:meu_querido_livro/app/widgets/button_default.widget.dart';
 import 'package:meu_querido_livro/app/widgets/multiline_input.widget.dart';
 import 'package:meu_querido_livro/app/widgets/simple_input.widget.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class PersonConfigurationsPage extends StatefulWidget {
   @override
@@ -23,34 +24,65 @@ class _PersonConfigurationsPageState extends State<PersonConfigurationsPage> {
       children: <Widget>[
         Container(
           width: MediaQuery.of(context).size.width,
-          color: _colorPalette.secondColor,
           padding: EdgeInsets.all(32),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
             children: <Widget>[
-              Container(
-                width: 75,
-                height: 75,
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage('https://avatars3.githubusercontent.com/u/36716898?s=460&u=9eb41db9519084bad7af7bd46d544d7b0be67eea&v=4'),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: 75,
+                    height: 75,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage('https://avatars3.githubusercontent.com/u/36716898?s=460&u=9eb41db9519084bad7af7bd46d544d7b0be67eea&v=4'),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListTile(
+                      title: Text(
+                        'Nome da pessoa',
+                        style: TextStyle(color: _colorPalette.lightColor, fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                      subtitle: Text(
+                        'Descrição da pessoa ldopsduf aspodif asopidf uapsoidf sadlkfjh aosidyuasdwuieyf wef oiasudfopiuweof asdf a0euw 0fue',
+                        style: TextStyle(color: _colorPalette.lightColor, height: 1.6),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: ListTile(
-                  title: Text(
-                    'Nome da pessoa',
-                    style: TextStyle(color: _colorPalette.lightColor, fontSize: 18, fontWeight: FontWeight.w500),
+              SizedBox(height: 16),
+              Container(
+                decoration: BoxDecoration(
+                  color: _colorPalette.lightColor,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
                   ),
-                  subtitle: Text(
-                    'Descrição da pessoa ldopsduf aspodif asopidf uapsoidf sadlkfjh aosidyuasdwuieyf wef oiasudfopiuweof asdf a0euw 0fue',
-                    style: TextStyle(color: _colorPalette.lightColor, height: 1.6),
-                  ),
+                ),
+                child: QrImage(
+                  data: "1234567890",
+                  version: QrVersions.auto,
+                  size: 150.0,
                 ),
               ),
             ],
           ),
+          decoration: BoxDecoration(
+            color: _colorPalette.secondColor,
+            boxShadow: [
+              BoxShadow(
+                color: _colorPalette.primaryColor,
+                blurRadius: 8.0,
+              )
+            ],
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.elliptical(100, 50),
+              bottomRight: Radius.elliptical(100, 50),
+            ),
+          ),
         ),
+        SizedBox(height: 8),
         Padding(
           padding: EdgeInsets.all(16),
           child: Column(
