@@ -6,14 +6,24 @@
 Application to register and loans books, that application has a simple architecture to resolve a simple problem.  
 
 ### Tecnilogies
- * Dart
- * Flutter
- * Firebase
+<div style="display: flex; flex-direction: row; justify-content: space-around;">
+ <img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/dart.jpg" />
+ <img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/flutter.png" />
+ <img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/firebase.png" />
+</div>
 
 ### Screenshots (sample)
-* Image 01
-* Image 02
-* Image 03
+
+<div>
+Dashboard Page: 
+<p><img width="255" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print01.png" /></p>
+
+List Books Page:
+<p><img width="255" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print02.png" /></p>
+
+Profile Configuration:
+<p><img width="255" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print03.png" /></p>
+</div>
 
 ### Screen map
 
@@ -23,7 +33,9 @@ Application to register and loans books, that application has a simple architect
 
 #### Install Instructions
 1.  Clone or Download the repository:
-git clone 
+	```bash
+	git clone https://github.com/PedroHenriqueDevBR/Querido-Livro.git
+	``` 
 2. Access the application folder and run the commands to run application:
 	```bash 
 	flutter pub get 
@@ -35,12 +47,12 @@ git clone
 #### Build Instructions
 
 1.  Clone or Download the repository:
-	``` 
-	git clone some_url.git 
+	```bash
+	git clone https://github.com/PedroHenriqueDevBR/Querido-Livro.git
 	```
 
 3. Run the commands to build application:
-	``` 
+	```bash
 	flutter build apk 
 	```
 
