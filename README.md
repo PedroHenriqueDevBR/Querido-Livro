@@ -17,6 +17,8 @@ Application to register and loans books, that application has a simple architect
 
 ### Screen map
 
+<img width="100%" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/screenmap.png" />
+
 ### Install and Build
 
 #### Install Instructions
