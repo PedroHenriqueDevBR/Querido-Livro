@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meu_querido_livro/app/pages/DashboardPage/dashboard.page.dart';
 import 'package:meu_querido_livro/app/pages/ListBooksPage/list_book.page.dart';
+import 'package:meu_querido_livro/app/pages/PersonConfigurationsPage/person_configurations.page.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
 
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _pages = [
     DashboardPage(),
     ListBookPage(),
-    ListBookPage(),
+    PersonConfigurationsPage(),
   ];
 
   _changePage(int index) {
@@ -31,7 +32,10 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         leading: Icon(Icons.book),
-        title: Text(_stringText.appName),
+        title: Text(
+          _stringText.appName,
+          style: TextStyle(color: _colorPalette.lightColor),
+        ),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
