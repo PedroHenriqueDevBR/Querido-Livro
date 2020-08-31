@@ -1,16 +1,58 @@
-# meu_querido_livro
 
-Flutter app to register books.
+<h1  align="center">Querido Livro (Dear Book) </h1>
 
-## Getting Started
+## About the application
 
-This project is a starting point for a Flutter application.
+Application to register and loans books, that application has a simple architecture to resolve a simple problem.  
 
-A few resources to get you started if this is your first Flutter project:
+### Tecnilogies
+ * Dart
+ * Flutter
+ * Firebase
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Screenshots (sample)
+* Image 01
+* Image 02
+* Image 03
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Screen map
+
+### Install and Build
+
+#### Install Instructions
+1.  Clone or Download the repository:
+git clone 
+2. Access the application folder and run the commands to run application:
+	```bash 
+	flutter pub get 
+	```
+	```bash
+	flutter run 
+	```
+
+#### Build Instructions
+
+1.  Clone or Download the repository:
+	``` 
+	git clone some_url.git 
+	```
+
+3. Run the commands to build application:
+	``` 
+	flutter build apk 
+	```
+
+## Features
+* Authetication - Authentication user on Firebase Auth
+* Register book - Register book on Cloud Firestore
+* Register user - Regieter user on Firebase Auth
+* Upload profile image - Upload user picture to Firebase Firestore
+* Generate a QrCode with your user id
+* Search user with qrcode - Add new friend user on your profile
+* lend book - lend book to friend
+
+## Permissions
+* `INTERNET`: necessary to access the internet. 
+* `ACCESS_NETWORK_STATE`: used by the browser to stop loading resources when network access is lost.
+
+### Screenshots (All screenshots)

@@ -19,6 +19,9 @@ class StringText {
   String books = 'Livros';
   String profile = 'Perfil';
 
+  // Model data
+  String noValue = 'Não especificado';
+
   StringText.changeTo(String language) {
     if (language == ENGLISH) {
       // General
@@ -37,6 +40,9 @@ class StringText {
       this.home = 'Home';
       this.books = 'Books';
       this.profile = 'Profile';
+
+      // Model data
+      this.noValue = 'uninformed';
     }
   }
 }
