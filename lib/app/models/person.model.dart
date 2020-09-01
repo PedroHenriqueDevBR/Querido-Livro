@@ -1,9 +1,12 @@
 import 'package:meu_querido_livro/app/models/friend.model.dart';
 
 class PersonModel {
+  String id;
   String name;
   String description;
   String pictureUrl;
+  String email;
+  String password;
   List<FriendModel> friends;
 
   PersonModel(name, description, pictureUrl, {friendsList}) {

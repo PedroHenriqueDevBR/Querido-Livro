@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "552299072253",
+    "firebase_url": "https://dear-book.firebaseio.com",
+    "project_id": "dear-book",
+    "storage_bucket": "dear-book.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552299072253:android:c2f4811d78def33f288c94",
+        "android_client_info": {
+          "package_name": "io.github.pedrohenriquedevbr.meu_querido_livro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552299072253-njk319svrgfbuftrogqdl7ift4tcenk6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.pedrohenriquedevbr.meu_querido_livro",
+            "certificate_hash": "c6667fea9a251d6d96a7871de6f42a04a929ae97"
+          }
+        },
+        {
+          "client_id": "552299072253-h7m428n26ki330uasutonbo315floqn6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzabmy80qfjT5xAxyqoHnVbv2pWowqVE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552299072253-h7m428n26ki330uasutonbo315floqn6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
