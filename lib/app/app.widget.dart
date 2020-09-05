@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meu_querido_livro/app/pages/HomePage/home.page.dart';
+import 'package:meu_querido_livro/app/pages/LoginPage/login.page.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 
 class App extends StatelessWidget {
@@ -31,6 +32,7 @@ class App extends StatelessWidget {
 
   AppBarTheme myAppBarTheme() {
     return AppBarTheme(
+      brightness: Brightness.dark,
       color: colorPalette.primaryColor,
       actionsIconTheme: IconThemeData(color: colorPalette.lightColor),
       elevation: 0,
