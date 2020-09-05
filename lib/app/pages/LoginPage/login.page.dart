@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meu_querido_livro/app/routes.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/widgets/button_default.widget.dart';
 import 'package:meu_querido_livro/app/widgets/simple_input.widget.dart';
@@ -30,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.45,
               child: Padding(
                 padding: EdgeInsets.all(16),
                 child: Column(
@@ -64,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.55,
               child: Card(
                 color: Color(0XBBFFFFFF),
                 margin: EdgeInsets.all(16),
@@ -108,7 +109,9 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.black,
                           ),
                         ),
-                        onPressed: null,
+                        onPressed: () {
+                          Navigator.pushNamed(context, RouteWidget.REGISTER_USER_ROUTE);
+                        },
                       ),
                     ],
                   ),
