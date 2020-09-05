@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:meu_querido_livro/app/interfaces/person_storage.interface.dart';
+import 'package:meu_querido_livro/app/repositories/person.repository.dart';
 import 'package:meu_querido_livro/app/routes.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
+import 'package:meu_querido_livro/app/utils/snackbar_default.dart';
 import 'package:meu_querido_livro/app/widgets/button_default.widget.dart';
 import 'package:meu_querido_livro/app/widgets/simple_input.widget.dart';
+import 'package:asuka/asuka.dart' as asuka;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,13 +14,52 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
   TextEditingController _txtLogin = TextEditingController();
   TextEditingController _txtPassword = TextEditingController();
   ColorPalette _colorPallete = new ColorPalette();
+  IPersonStorage _storage = PersonFirebase();
+  SnackbarDefault _snackbarDefault = SnackbarDefault();
+
+  Future loggon() async {
+    if (_txtLogin.text.isEmpty) {
+      showMessage('Digite o seu e-mail');
+      return;
+    }
+    if (_txtPassword.text.isEmpty) {
+      showMessage('Digite a sua senha');
+      return;
+    }
+    await _storage.signin(_txtLogin.text, _txtPassword.text).then((response) {
+      Navigator.pushReplacementNamed(context, RouteWidget.HOME_ROUTE);
+    }).catchError((error) {
+      print(error);
+      String errorStr = error.toString();
+      if (errorStr.contains('ERROR_INVALID_EMAIL')) {
+        showMessage('E-mail inválido');
+      } else if (errorStr.contains('ERROR_USER_NOT_FOUND')) {
+        showMessage('Credenciais incorretas');
+      } else if (errorStr.contains('ERROR_WRONG_PASSWORD')) {
+        showMessage('Credenciais incorretas');
+      } else {
+        showMessage('Ocorreu um erro ao acessar banco de dados');
+      }
+    });
+  }
+
+  void showMessage(String msg) {
+    _globalKey.currentState.showSnackBar(_snackbarDefault.defaultMessage(msg));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _globalKey,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -28,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         child: ListView(
+          physics: BouncingScrollPhysics(),
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width,
@@ -84,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: <Widget>[
                           SimpleInputWidget(
                             _txtLogin,
-                            'Login',
+                            'E-mail',
                             bordered: true,
                           ),
                           SizedBox(height: 16),
@@ -97,7 +141,9 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(height: 16),
                           ButtonDefaultWidget(
                             'Entrar',
-                            () {},
+                            () {
+                              loggon();
+                            },
                             _colorPallete.secondColorDark,
                           ),
                         ],

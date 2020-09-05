@@ -4,6 +4,7 @@ import 'package:meu_querido_livro/app/pages/HomePage/home.page.dart';
 import 'package:meu_querido_livro/app/pages/LoginPage/login.page.dart';
 import 'package:meu_querido_livro/app/routes.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
+import 'package:asuka/asuka.dart' show builder;
 
 class App extends StatelessWidget {
   ColorPalette colorPalette = ColorPalette();
@@ -28,6 +29,7 @@ class App extends StatelessWidget {
         appBarTheme: myAppBarTheme(),
       ),
       home: LoginPage(),
+      builder: builder,
       initialRoute: RouteWidget.LOGIN_ROUTE,
       onGenerateRoute: RouteWidget.generateRoute,
     );

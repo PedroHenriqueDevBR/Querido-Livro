@@ -8,7 +8,7 @@ import 'package:meu_querido_livro/app/models/person.model.dart';
 import 'package:meu_querido_livro/app/utils/constants.dart';
 
 class PersonFirebase implements IPersonStorage {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  Firestore _firestore = Firestore.instance;
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseStorage _storage = FirebaseStorage.instance;
   Constants _constants = Constants();
@@ -35,26 +35,37 @@ class PersonFirebase implements IPersonStorage {
 
   Future createUserData(PersonModel person) async {
     try {
-      User value = await _auth.currentUser;
-      String id = value.uid;
-      if (id != null) {
-        _firestore.collection(_constants.PERSON_DATABASE).doc(id).set(person.toJson());
-        return true;
-      } else {
-        return throw Exception('Erro ao cadastrar usuário entre em contato com o desenvolvedor');
-      }
+      await _auth.currentUser().then((value) async {
+        String id = value.uid;
+        if (id != null) {
+          _firestore.collection(_constants.PERSON_DATABASE).document(id).setData(person.toJson());
+          await updatePassword(person).then((_) {
+            return true;
+          });
+        } else {
+          return throw Exception('Erro ao cadastrar usuário entre em contato com o desenvolvedor');
+        }
+      });
     } catch (error) {
       return throw Exception(error);
     }
   }
 
+  Future updatePassword(PersonModel person) async {
+    await _auth.sendPasswordResetEmail(email: person.email).then((_) {
+      return true;
+    }).catchError((onError) {
+      return throw Exception('Erro ao resetar senha');
+    });
+  }
+
   @override
   Future<PersonModel> getLoggedUser() async {
     try {
-      User user = await _auth.currentUser;
+      FirebaseUser user = await _auth.currentUser();
       String id = user.uid;
-      DocumentSnapshot snapshot = await _firestore.collection(_constants.PERSON_DATABASE).doc(id).get();
-      PersonModel person = PersonModel.fromJson(snapshot.data());
+      DocumentSnapshot snapshot = await _firestore.collection(_constants.PERSON_DATABASE).document(id).get();
+      PersonModel person = PersonModel.fromJson(snapshot.data);
       person.id = id;
       return person;
     } catch (error) {
@@ -88,7 +99,7 @@ class PersonFirebase implements IPersonStorage {
     }
 
     try {
-      await _firestore.collection(_constants.PERSON_DATABASE).doc(person.id).set(person.toJson());
+      await _firestore.collection(_constants.PERSON_DATABASE).document(person.id).setData(person.toJson());
       return person;
     } catch (error) {
       return throw Exception(error);
