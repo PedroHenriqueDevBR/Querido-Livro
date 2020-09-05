@@ -11,7 +11,7 @@ class SimpleInputWidget extends StatelessWidget {
   bool readOnly;
   bool bordered;
 
-  SimpleInputWidget(this.controller, this.hint, {this.formatters, this.type, this.isPassword = false, this.validator, this.readOnly=false, this.bordered=false});
+  SimpleInputWidget(this.controller, this.hint, {this.formatters, this.type, this.isPassword = false, this.validator, this.readOnly = false, this.bordered = false});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,7 @@ class SimpleInputWidget extends StatelessWidget {
       readOnly: readOnly,
       style: TextStyle(color: Colors.black, decorationColor: Colors.black, fontSize: 17),
       decoration: InputDecoration(
+        fillColor: Colors.black,
         labelText: bordered ? hint : null,
         hintText: hint,
         hintStyle: TextStyle(color: Colors.grey),

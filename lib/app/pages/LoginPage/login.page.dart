@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
+import 'package:meu_querido_livro/app/widgets/button_default.widget.dart';
+import 'package:meu_querido_livro/app/widgets/simple_input.widget.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -7,23 +9,114 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController _txtLogin = TextEditingController();
+  TextEditingController _txtPassword = TextEditingController();
   ColorPalette _colorPallete = new ColorPalette();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              _colorPallete.secondColor,
-              _colorPallete.secondColorDark,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(Colors.brown, BlendMode.multiply),
+            image: NetworkImage('https://images.pexels.com/photos/698928/pexels-photo-698928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
           ),
         ),
-        child: Column(),
+        child: ListView(
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image(
+                      height: 100,
+                      image: AssetImage('assets/images/escola.png'),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Preencha os campos abaixo para realizar o login na aplicação',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      'Caso não haja cadastro, clique em quero me cadastrar',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: Card(
+                color: Color(0XBBFFFFFF),
+                margin: EdgeInsets.all(16),
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Página de acesso',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      Column(
+                        children: <Widget>[
+                          SimpleInputWidget(
+                            _txtLogin,
+                            'Login',
+                            bordered: true,
+                          ),
+                          SizedBox(height: 16),
+                          SimpleInputWidget(
+                            _txtPassword,
+                            'Senha',
+                            isPassword: true,
+                            bordered: true,
+                          ),
+                          SizedBox(height: 16),
+                          ButtonDefaultWidget(
+                            'Entrar',
+                            () {},
+                            _colorPallete.secondColorDark,
+                          ),
+                        ],
+                      ),
+                      FlatButton(
+                        child: Text(
+                          'Quero me cadastrar',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        onPressed: null,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

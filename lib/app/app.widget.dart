@@ -22,11 +22,11 @@ class App extends StatelessWidget {
       title: 'Meu Querido Livro',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.brown,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: myAppBarTheme(),
       ),
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 
