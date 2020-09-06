@@ -30,7 +30,7 @@ class App extends StatelessWidget {
       ),
       home: LoginPage(),
       builder: builder,
-      initialRoute: RouteWidget.LOGIN_ROUTE,
+      initialRoute: RouteWidget.SPLASH_ROUTE,
       onGenerateRoute: RouteWidget.generateRoute,
     );
   }

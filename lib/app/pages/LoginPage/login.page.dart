@@ -4,9 +4,9 @@ import 'package:meu_querido_livro/app/repositories/person.repository.dart';
 import 'package:meu_querido_livro/app/routes.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/snackbar_default.dart';
+import 'package:meu_querido_livro/app/utils/string_text.dart';
 import 'package:meu_querido_livro/app/widgets/button_default.widget.dart';
 import 'package:meu_querido_livro/app/widgets/simple_input.widget.dart';
-import 'package:asuka/asuka.dart' as asuka;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -20,14 +20,15 @@ class _LoginPageState extends State<LoginPage> {
   ColorPalette _colorPallete = new ColorPalette();
   IPersonStorage _storage = PersonFirebase();
   SnackbarDefault _snackbarDefault = SnackbarDefault();
+  StringText _stringText = StringText.changeTo(StringText.ENGLISH);
 
   Future loggon() async {
     if (_txtLogin.text.isEmpty) {
-      showMessage('Digite o seu e-mail');
+      showMessage(_stringText.enterMail);
       return;
     }
     if (_txtPassword.text.isEmpty) {
-      showMessage('Digite a sua senha');
+      showMessage(_stringText.enterPass);
       return;
     }
     await _storage.signin(_txtLogin.text, _txtPassword.text).then((response) {
@@ -36,13 +37,13 @@ class _LoginPageState extends State<LoginPage> {
       print(error);
       String errorStr = error.toString();
       if (errorStr.contains('ERROR_INVALID_EMAIL')) {
-        showMessage('E-mail inválido');
+        showMessage(_stringText.invalidEmail);
       } else if (errorStr.contains('ERROR_USER_NOT_FOUND')) {
-        showMessage('Credenciais incorretas');
+        showMessage(_stringText.invalidCredential);
       } else if (errorStr.contains('ERROR_WRONG_PASSWORD')) {
-        showMessage('Credenciais incorretas');
+        showMessage(_stringText.invalidCredential);
       } else {
-        showMessage('Ocorreu um erro ao acessar banco de dados');
+        showMessage(_stringText.internalError);
       }
     });
   }
@@ -67,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
           image: DecorationImage(
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(Colors.brown, BlendMode.multiply),
-            image: NetworkImage('https://images.pexels.com/photos/698928/pexels-photo-698928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
+            image: AssetImage('assets/images/splash-imge.jpeg'),
           ),
         ),
         child: ListView(
@@ -88,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     SizedBox(height: 16),
                     Text(
-                      'Preencha os campos abaixo para realizar o login na aplicação',
+                      _stringText.fillInTheFields,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -96,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Text(
-                      'Caso não haja cadastro, clique em quero me cadastrar',
+                      _stringText.wantToRegisterMessage,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -121,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Página de acesso',
+                        _stringText.loginPage,
                         style: TextStyle(fontSize: 22),
                       ),
                       Column(
@@ -134,13 +135,13 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(height: 16),
                           SimpleInputWidget(
                             _txtPassword,
-                            'Senha',
+                            _stringText.password,
                             isPassword: true,
                             bordered: true,
                           ),
                           SizedBox(height: 16),
                           ButtonDefaultWidget(
-                            'Entrar',
+                            _stringText.enter,
                             () {
                               loggon();
                             },
@@ -150,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       FlatButton(
                         child: Text(
-                          'Quero me cadastrar',
+                          _stringText.wantToRegister,
                           style: TextStyle(
                             color: Colors.black,
                           ),

@@ -23,22 +23,22 @@ class PersonModel {
     this.friends = friendsList != null ? friendsList : [];
   }
 
-  PersonModel.fromJson(Map<String, dynamic> json) {
+  PersonModel.fromJson(Map<dynamic, dynamic> json) {
     name = json['name'] != null ? json['name'] : '';
     description = json['description'] != null ? json['description'] : '';
     pictureUrl = json['pictureUrl'] != null ? json['pictureUrl'] : null;
-    friends = json['friends'] != null ? _getFriends(json['friends']) : [];
+    friends = json['friends'] != null ? json['friends'].length > 0 ? _getFriends(json['friends']) : [] : [];
   }
 
-  List<FriendModel> _getFriends(List<Map<String, dynamic>> friendsMap) {
+  List<FriendModel> _getFriends(List<Map<dynamic, dynamic>> friendsMap) {
     List<FriendModel> result = [];
-    for (Map<String, dynamic> json in friendsMap) {
+    for (Map<dynamic, dynamic> json in friendsMap) {
       result.add(FriendModel.fromJson(json));
     }
     return result;
   }
 
-  Map<String, dynamic> toJson() {
+  Map<dynamic, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name != null ? this.name : '';
     data['description'] = this.description != null ? this.description : '';
@@ -47,7 +47,7 @@ class PersonModel {
     return data;
   }
 
-  List<Map<String, dynamic>> _setFriend(List<FriendModel> friends) {
+  List<Map<dynamic, dynamic>> _setFriend(List<FriendModel> friends) {
     List<Map<String, dynamic>> result = [];
     for (FriendModel friend in friends) {
       result.add(friend.toJson());

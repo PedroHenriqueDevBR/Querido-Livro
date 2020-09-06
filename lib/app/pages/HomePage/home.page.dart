@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
             color: _colorPalette.lightColor,
             captureInheritedThemes: true,
             tooltip: 'Menu',
+            offset: Offset(0, 100),
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 1,

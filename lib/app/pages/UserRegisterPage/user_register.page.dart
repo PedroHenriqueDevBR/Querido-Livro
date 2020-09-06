@@ -72,7 +72,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
           image: DecorationImage(
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(Colors.brown, BlendMode.multiply),
-            image: NetworkImage('https://images.pexels.com/photos/698928/pexels-photo-698928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
+            image: AssetImage('assets/images/splash-imge.jpeg'),
           ),
         ),
         child: ListView(
