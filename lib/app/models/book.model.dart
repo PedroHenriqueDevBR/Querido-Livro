@@ -1,4 +1,5 @@
 class BookModel {
+  String id;
   String name;
   String description;
   String pictureUrl;

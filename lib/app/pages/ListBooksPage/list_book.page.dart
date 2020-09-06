@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meu_querido_livro/app/routes.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
 
@@ -96,7 +97,9 @@ class _ListBookPageState extends State<ListBookPage> {
         foregroundColor: _colorPalette.lightColor,
         icon: Icon(Icons.add),
         label: Text('Adicionar'),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, RouteWidget.CREATE_BOOK_ROUTE);
+        },
       ),
     );
   }

@@ -33,6 +33,8 @@ flutter:
   assets:
     - assets/images/escola.png
     - assets/images/splash-imge.jpeg
+    - assets/images/biblioteca.png
+
   # fonts:
   #   - family: Schyler
   #     fonts:
