@@ -8,19 +8,29 @@ class StringText {
   String borrowedBook = 'Livros emprestados';
   String receivedBook = 'Livros recebidos';
   String loading = 'Carregando';
+  String internalError = 'Ocorreu um erro interno, tente novamente mais tarde';
+  String fillInTheFields = 'Preencha os campos abaixo';
 
   // Login data
-  String password = 'Senha'; // Password
-  String enter = 'Entrar'; // Login
-  String enterMail = 'Digite o seu e-mail'; // Enter your e-mail
-  String enterPass = 'Digite a sua senha'; // Enter your password
-  String invalidEmail = 'E-mail inválido'; // Invalid e-mail
-  String invalidCredential = 'Credenciais incorretas'; // Invalid credential
-  String internalError = 'Ocorreu um erro interno, tente novamente mais tarde'; // An internal error has occurred, please try again later
-  String fillInTheFields = 'Preencha os campos abaixo para realizar o login na aplicação'; // Fill in the fields below to login
-  String wantToRegisterMessage = 'Se não for cadastrado, clique em "quero me cadastrar"'; // If you are not registered, click on "I want to sign up"
-  String loginPage = 'Página de acesso'; // Access page
-  String wantToRegister = 'Quero me cadastrar'; // I want to sign up
+  String password = 'Senha';
+  String enter = 'Entrar';
+  String enterMail = 'Digite o seu e-mail';
+  String enterPass = 'Digite a sua senha';
+  String invalidEmail = 'E-mail inválido';
+  String invalidCredential = 'Credenciais incorretas';
+  String wantToRegisterMessage = 'Se não for cadastrado, clique em "quero me cadastrar"';
+  String loginPage = 'Página de acesso';
+  String wantToRegister = 'Quero me cadastrar';
+
+  // Create User data
+  String verifyYourEmail = 'Verifique a sua caixa de e-mail para finalizar o seu cadastro';
+  String differentEmails = 'Os e-mails digitados são diferentes';
+  String createUser = 'Cadastro de usuário';
+  String name = 'Nome completo';
+  String confirmEmail = 'Confirmar e-mail';
+  String awaitEmail = 'Após o cadastro aguarde o e-mail.\nUm e-mail será enviado solicitando a criação de uma senha.';
+  String register = 'Registrar';
+  String goBack = 'Voltar';
 
   // Dashboard data
   String registered = 'Livros cadastrados';
@@ -44,6 +54,8 @@ class StringText {
       this.borrowedBook = 'Borrowed';
       this.receivedBook = 'Received';
       this.loading = 'Loading';
+      this.internalError = 'An internal error has occurred, please try again later';
+      this.fillInTheFields = 'Fill in all fields';
 
       // Login data
       this.password = 'Password';
@@ -52,11 +64,19 @@ class StringText {
       this.enterPass = 'Enter your password';
       this.invalidEmail = 'Invalid e-mail';
       this.invalidCredential = 'Invalid credential';
-      this.internalError = 'An internal error has occurred, please try again later';
-      this.fillInTheFields = 'Fill in the fields below to login';
       this.wantToRegisterMessage = 'If you are not registered, click on "I want to sign up"';
       this.loginPage = 'Access page';
       this.wantToRegister = 'I want to sign up';
+
+      // Create User data
+      this.verifyYourEmail = 'Check your email box to complete your registration';
+      this.differentEmails = 'Error: different emails';
+      this.createUser = 'Create new user';
+      this.name = 'Name';
+      this.confirmEmail = 'Confirm e-mail';
+      this.awaitEmail = 'After registration wait for the email.\nAn email will be sent requesting the creation of a password.';
+      this.register = 'Register';
+      this.goBack = 'Go back';
 
       // Dashboard data
       this.registered = 'Registered books';
