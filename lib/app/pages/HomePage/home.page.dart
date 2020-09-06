@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:meu_querido_livro/app/interfaces/person_storage.interface.dart';
 import 'package:meu_querido_livro/app/pages/DashboardPage/dashboard.page.dart';
 import 'package:meu_querido_livro/app/pages/ListBooksPage/list_book.page.dart';
 import 'package:meu_querido_livro/app/pages/PersonConfigurationsPage/person_configurations.page.dart';
+import 'package:meu_querido_livro/app/repositories/person.repository.dart';
+import 'package:meu_querido_livro/app/routes.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
 
@@ -19,6 +22,16 @@ class _HomePageState extends State<HomePage> {
     ListBookPage(),
     PersonConfigurationsPage(),
   ];
+
+  IPersonStorage _personStorage = PersonFirebase();
+
+  Future _logout() async {
+    await _personStorage.signout().then((_) {
+      Navigator.pushReplacementNamed(context, RouteWidget.SPLASH_ROUTE);
+    }).catchError((error) {
+      print(error);
+    });
+  }
 
   _changePage(int index) {
     setState(() {
@@ -38,10 +51,25 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.info_outline),
-            onPressed: () {},
-          )
+          PopupMenuButton<int>(
+            elevation: 6,
+            icon: Icon(Icons.more_vert),
+            color: _colorPalette.lightColor,
+            captureInheritedThemes: true,
+            tooltip: 'Menu',
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 1,
+                child: Text('Deslogar'),
+                height: 30,
+              ),
+            ],
+            onSelected: (int value) {
+              if (value == 1) {
+                _logout();
+              }
+            },
+          ),
         ],
       ),
       body: _pages[_currentIndex],
