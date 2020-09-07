@@ -15,14 +15,14 @@ class SnackbarDefault {
   SnackBar alertMessage(String message) {
     return SnackBar(
       content: Text(message),
-      backgroundColor: _colorPalette.successColor,
+      backgroundColor: _colorPalette.alertColor,
     );
   }
 
   SnackBar successfulMessage(String message) {
     return SnackBar(
       content: Text(message),
-      backgroundColor: _colorPalette.alertColor,
+      backgroundColor: _colorPalette.successColor,
     );
   }
 }

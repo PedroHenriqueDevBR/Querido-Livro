@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:meu_querido_livro/app/interfaces/book_storage.interface.dart';
+import 'package:meu_querido_livro/app/interfaces/person_storage.interface.dart';
+import 'package:meu_querido_livro/app/models/book.model.dart';
+import 'package:meu_querido_livro/app/models/person.model.dart';
+import 'package:meu_querido_livro/app/pages/CreateBookPage/create_book.page.dart';
+import 'package:meu_querido_livro/app/repositories/book.repository.dart';
+import 'package:meu_querido_livro/app/repositories/person.repository.dart';
 import 'package:meu_querido_livro/app/routes.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
@@ -9,19 +16,43 @@ class ListBookPage extends StatefulWidget {
 }
 
 class _ListBookPageState extends State<ListBookPage> {
+  List<BookModel> books = [];
   ColorPalette _colorPalette = new ColorPalette();
   StringText _stringText = new StringText.changeTo(StringText.ENGLISH);
+  IBookStorage _storage = BookFirebase();
+  IPersonStorage _personStorage = PersonFirebase();
+
+  Future getBooksFromDatabase() async {
+    PersonModel person = await _personStorage.getLoggedUser();
+    List<BookModel> responseBook = await _storage.getUserBooks(person);
+    setState(() {
+      books = responseBook;
+    });
+  }
+
+  double getPercentPages(calc, total) {
+    double percent = ((calc * 100) / total) / 100;
+    print('Percentual: ' + percent.toString());
+    return percent;
+  }
+
+  @override
+  void initState() {
+    getBooksFromDatabase();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
+        physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(8),
-        itemCount: 10,
+        itemCount: books.length,
         itemBuilder: (context, index) {
           return Card(
             margin: EdgeInsets.only(bottom: 16),
-            elevation: 6,
+            elevation: 8,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -29,16 +60,28 @@ class _ListBookPageState extends State<ListBookPage> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    'Nome do livro',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ListTile(
+                  leading: Icon(Icons.book),
+                  title: Text(books[index].name),
+                  trailing: IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CreateBookPage(
+                            book: books[index],
+                          ),
+                        ),
+                      ).then((_) {
+                        getBooksFromDatabase();
+                      });
+                    },
                   ),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 150,
+                  height: MediaQuery.of(context).size.width * 0.4,
                   decoration: BoxDecoration(
                     color: _colorPalette.primaryColor,
                     image: DecorationImage(
@@ -56,16 +99,16 @@ class _ListBookPageState extends State<ListBookPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       ListTile(
-                        title: Text(
-                          'Descrição do livro asda kjhdfkas hdfklasdf ewouysdjkf s fpo soiudyf asdf sdkjfhaeuyw e wefwqyuefiouqweyf  efouief ioqwuyefwef puiqwye',
+                        subtitle: Text(
+                          books[index].description,
                           maxLines: 5,
+                          style: TextStyle(fontSize: 16, height: 1.5),
                         ),
                       ),
                       Text(
-                        'Total de páginas: 200',
+                        'Páginas lidas: ${books[index].readPageCount} de ${books[index].bookPageCount}',
                         textAlign: TextAlign.end,
                       ),
-                      Text('Páginas lidas: 64'),
                     ],
                   ),
                 ),
@@ -73,18 +116,15 @@ class _ListBookPageState extends State<ListBookPage> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: _colorPalette.secondColor,
+                    color: Colors.grey[100],
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(8),
                       bottomRight: Radius.circular(8),
                     ),
                   ),
-                  child: Text(
-                    _stringText.borrowed,
-                    style: TextStyle(
-                      color: _colorPalette.lightColor,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  child: LinearProgressIndicator(
+                    backgroundColor: Colors.white,
+                    value: getPercentPages(books[index].readPageCount, books[index].bookPageCount),
                   ),
                 )
               ],

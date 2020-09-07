@@ -34,6 +34,7 @@ class RouteWidget {
         );
       case CREATE_BOOK_ROUTE:
         return MaterialPageRoute(
+          settings: RouteSettings(arguments: args),
           builder: (context) => CreateBookPage(),
         );
       default:
