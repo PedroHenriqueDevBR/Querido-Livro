@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -28,9 +30,16 @@ class BookFirebase implements IBookStorage {
     }
   }
 
-  Future<BookModel> createBook(BookModel book) async {
-    await _firestore.collection(_constants.BOOK_DATABASE).add(book.toJson()).then((DocumentReference documentReference) {
+  Future<BookModel> createBook(BookModel book, {File image = null}) async {
+    await _firestore.collection(_constants.BOOK_DATABASE).add(book.toJson()).then((DocumentReference documentReference) async {
       book.id = documentReference.documentID;
+      if (image != null) {
+        await _addNewImage(book, file: image).then((BookModel bookResponse) {
+          return bookResponse;
+        }).catchError((error) {
+          print(error);
+        });
+      }
       return book;
     }).catchError((onError) {
       print(onError);
@@ -57,7 +66,47 @@ class BookFirebase implements IBookStorage {
     }
   }
 
-  Future leanBook(BookModel book) async {
-    return true;
+  @override
+  Future<String> _sendImageToStorage(File profileImage, BookModel book) async {
+    try {
+      StorageReference root = _storage.ref();
+      StorageReference file = root.child(_constants.BOOK_IMAGE_DATABASE).child('${book.id}.jpg');
+      StorageUploadTask uploadTask = file.putFile(profileImage);
+      StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+
+      String url = await taskSnapshot.ref.getDownloadURL();
+      return url;
+    } catch (error) {
+      return throw Exception(error);
+    }
+  }
+
+  Future<BookModel> _addNewImage(BookModel book, {File file}) async {
+    if (file != null) {
+      await _sendImageToStorage(file, book).then((imageUrl) {
+        book.pictureUrl = imageUrl;
+        return book;
+      }).catchError((error) {
+        return throw Exception('erro ao carregar imagem');
+      });
+    }
+  }
+
+  @override
+  Future<BookModel> updateBookImage(BookModel book, {File file}) async {
+    if (file != null) {
+      await _sendImageToStorage(file, book).then((imageUrl) {
+        book.pictureUrl = imageUrl;
+      }).catchError((error) {
+        return throw Exception('erro ao carregar imagem');
+      });
+    }
+
+    try {
+      book = await updateBook(book);
+      return book;
+    } catch (error) {
+      return throw Exception(error);
+    }
   }
 }

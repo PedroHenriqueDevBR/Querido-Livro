@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:meu_querido_livro/app/interfaces/book_storage.interface.dart';
 import 'package:meu_querido_livro/app/interfaces/person_storage.interface.dart';
@@ -5,6 +7,8 @@ import 'package:meu_querido_livro/app/models/book.model.dart';
 import 'package:meu_querido_livro/app/models/person.model.dart';
 import 'package:meu_querido_livro/app/repositories/book.repository.dart';
 import 'package:meu_querido_livro/app/repositories/person.repository.dart';
+import 'package:meu_querido_livro/app/services/edit_image.service.dart';
+import 'package:meu_querido_livro/app/services/get_image.service.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/snackbar_default.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
@@ -20,23 +24,103 @@ class CreateBookPage extends StatefulWidget {
 }
 
 class _CreateBookPageState extends State<CreateBookPage> {
+  GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
   StringText _stringText = StringText.changeTo(StringText.ENGLISH);
   ColorPalette _colorPalette = ColorPalette();
+  GetImageService _getImageService = GetImageService();
+  EditImageService _editImageService = EditImageService();
+
   IBookStorage _storage = BookFirebase();
   IPersonStorage _personStorage = PersonFirebase();
-  GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
   TextEditingController _txtName = TextEditingController();
   TextEditingController _txtDescription = TextEditingController();
   TextEditingController _txtBookPageCount = TextEditingController();
   TextEditingController _txtReadPageCount = TextEditingController();
   TextEditingController _txtBorrowedReadPageCount = TextEditingController();
-  String pictureUrl;
   bool enable = true;
+  File imageFile;
 
   Future<String> getLoggedUser() async {
     PersonModel person = await _personStorage.getLoggedUser();
     return person.id;
+  }
+
+  Future getCameraImage() async {
+    File receiveImage;
+    receiveImage = await _getImageService.getImageFromCamera();
+    setState(() {
+      imageFile = receiveImage;
+    });
+  }
+
+  Future getGalleryImage() async {
+    File receiveImage;
+    receiveImage = await _getImageService.getImageFromGallery();
+    setState(() {
+      imageFile = receiveImage;
+    });
+  }
+
+  void _getImage() async {
+    _globalKey.currentState.showBottomSheet(
+      (context) => Padding(
+        padding: EdgeInsets.all(16),
+        child: Wrap(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text(
+                  'Selecionar a image da:',
+                  style: TextStyle(color: Colors.white),
+                ),
+                SizedBox(height: 16),
+                ButtonDefaultWidget('Câmera', () {
+                  getCameraImage();
+                  Navigator.pop(context);
+                }, _colorPalette.secondColor),
+                SizedBox(height: 16),
+                ButtonDefaultWidget('Galeria', () {
+                  getGalleryImage();
+                  Navigator.pop(context);
+                }, _colorPalette.secondColor),
+                SizedBox(height: 16),
+                Text(
+                  'Arraste para baixo para cancelar:',
+                  style: TextStyle(color: Colors.white),
+                ),
+                SizedBox(height: 16),
+              ],
+            ),
+          ],
+        ),
+      ),
+      backgroundColor: _colorPalette.primaryColor,
+      elevation: 6,
+    );
+  }
+
+  void editImage() async {
+    File editedImage;
+    if (imageFile != null) {
+      editedImage = await _editImageService.editImage(imageFile);
+    } else {
+      showErrorMessage('Selecione uma imagem para ser editada');
+    }
+    if (editedImage != null) {
+      setState(() {
+        imageFile = editedImage;
+      });
+    }
+  }
+
+  void reserImageData() {
+    setState(() {
+      imageFile = null;
+      if (widget.book != null) {
+        widget.book.pictureUrl = null;
+      }
+    });
   }
 
   bool validForm() {
@@ -80,7 +164,7 @@ class _CreateBookPageState extends State<CreateBookPage> {
     BookModel bookRegister = BookModel(
       name: name,
       description: description,
-      pictureUrl: pictureUrl,
+      pictureUrl: null,
       bookPageCount: bookPageCount,
       readPageCount: readPageCount,
       borrowedReadPageCount: borrowedReadPageCount,
@@ -108,13 +192,13 @@ class _CreateBookPageState extends State<CreateBookPage> {
 
     widget.book.name = name;
     widget.book.description = description;
-    widget.book.pictureUrl = pictureUrl;
+    widget.book.pictureUrl = '';
     widget.book.bookPageCount = bookPageCount;
     widget.book.readPageCount = readPageCount;
     widget.book.borrowedReadPageCount = borrowedReadPageCount;
     widget.book.enable = enable;
 
-    await _storage.updateBook(widget.book).then((BookModel bookResponse) {
+    await _storage.updateBookImage(widget.book, file: imageFile).then((BookModel bookResponse) {
       setState(() {
         widget.book = bookResponse;
       });
@@ -131,7 +215,6 @@ class _CreateBookPageState extends State<CreateBookPage> {
       _txtBookPageCount.text = widget.book.bookPageCount.toString();
       _txtReadPageCount.text = widget.book.readPageCount.toString();
       _txtBorrowedReadPageCount.text = widget.book.borrowedReadPageCount.toString();
-      pictureUrl = widget.book.pictureUrl;
       enable = widget.book.enable;
     }
   }
@@ -164,34 +247,79 @@ class _CreateBookPageState extends State<CreateBookPage> {
       appBar: AppBar(
         title: Text('Livro'),
         centerTitle: true,
+        actions: <Widget>[
+          FlatButton(
+            child: Text(
+              'Remover\nimagem',
+              style: TextStyle(color: _colorPalette.lightColor),
+            ),
+            onPressed: () {
+              reserImageData();
+            },
+          ),
+        ],
       ),
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: <Widget>[
           Container(
+            padding: EdgeInsets.all(8),
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.34,
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image(
-                    height: 100,
-                    image: AssetImage('assets/images/biblioteca.png'),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Registrar livro',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+            height: MediaQuery.of(context).size.height * 0.45,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      _getImage();
+                    },
+                    onLongPress: () {
+                      showDialog(
+                        context: (context),
+                        builder: (alertContext) => AlertDialog(
+                          title: Text('Atenção'),
+                          content: Text('Editar imagem selecionada?'),
+                          actions: <Widget>[
+                            FlatButton(
+                                child: Text('Cancelar'),
+                                onPressed: () {
+                                  Navigator.pop(alertContext);
+                                }),
+                            FlatButton(
+                              child: Text('Confirmar'),
+                              onPressed: () {
+                                editImage();
+                                Navigator.pop(alertContext);
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: Image(
+                      width: imageFile != null ? MediaQuery.of(context).size.width : 100,
+                      image: imageFile != null
+                          ? FileImage(
+                              imageFile,
+                            )
+                          : widget.book != null ? widget.book.pictureUrl.isNotEmpty ? AssetImage(widget.book.pictureUrl) : AssetImage('assets/images/biblioteca.png') : AssetImage('assets/images/biblioteca.png'),
                     ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Precione a imagem para alterar-la',
+                  textAlign: TextAlign.center,
+                ),
+                imageFile != null
+                    ? Text(
+                        'Precione e segure a imagem para editar a imagem selecionada',
+                        textAlign: TextAlign.center,
+                      )
+                    : Container(),
+              ],
             ),
           ),
           Padding(

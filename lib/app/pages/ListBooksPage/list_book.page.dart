@@ -32,7 +32,6 @@ class _ListBookPageState extends State<ListBookPage> {
 
   double getPercentPages(calc, total) {
     double percent = ((calc * 100) / total) / 100;
-    print('Percentual: ' + percent.toString());
     return percent;
   }
 
@@ -61,8 +60,10 @@ class _ListBookPageState extends State<ListBookPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 ListTile(
-                  leading: Icon(Icons.book),
-                  title: Text(books[index].name),
+                  title: Text(
+                    books[index].name,
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
                   trailing: IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
@@ -83,7 +84,7 @@ class _ListBookPageState extends State<ListBookPage> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width * 0.4,
                   decoration: BoxDecoration(
-                    color: _colorPalette.primaryColor,
+                    color: Colors.grey[100],
                     image: DecorationImage(
                       image: NetworkImage(
                         'https://images.pexels.com/photos/2102649/pexels-photo-2102649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
@@ -126,7 +127,7 @@ class _ListBookPageState extends State<ListBookPage> {
                     backgroundColor: Colors.white,
                     value: getPercentPages(books[index].readPageCount, books[index].bookPageCount),
                   ),
-                )
+                ),
               ],
             ),
           );
