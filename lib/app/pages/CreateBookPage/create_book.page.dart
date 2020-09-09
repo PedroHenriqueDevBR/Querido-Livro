@@ -208,6 +208,16 @@ class _CreateBookPageState extends State<CreateBookPage> {
     });
   }
 
+  Future deleteBook() async {
+    if (widget.book != null) {
+      _storage.deleteBook(widget.book).then((_) {
+        Navigator.pop(context);
+      });
+    } else {
+      showErrorMessage('Operação impossível');
+    }
+  }
+
   initBookFormData() {
     if (widget.book != null) {
       _txtName.text = widget.book.name;
@@ -395,9 +405,23 @@ class _CreateBookPageState extends State<CreateBookPage> {
                   ],
                 ),
                 SizedBox(height: 16),
-                ButtonDefaultWidget('Registrar', () {
-                  registerBook();
-                }, _colorPalette.secondColor),
+                Row(
+                  children: <Widget>[
+                    widget.book != null
+                        ? Expanded(
+                            child: ButtonDefaultWidget('Deletar', () {
+                              deleteBook();
+                            }, _colorPalette.alertColor),
+                          )
+                        : Container(),
+                    widget.book != null ? SizedBox(width: 16) : Container(),
+                    Expanded(
+                      child: ButtonDefaultWidget('Registrar', () {
+                        registerBook();
+                      }, _colorPalette.successColor),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

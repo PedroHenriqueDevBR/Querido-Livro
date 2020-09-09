@@ -98,6 +98,7 @@ class _ListBookPageState extends State<ListBookPage> {
                   ),
                 ),
                 Container(
+                  color: Colors.grey[100],
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width * 0.4,
                   child: isUrlImageFromBook(books[index])
