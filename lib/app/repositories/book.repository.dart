@@ -34,11 +34,8 @@ class BookFirebase implements IBookStorage {
     await _firestore.collection(_constants.BOOK_DATABASE).add(book.toJson()).then((DocumentReference documentReference) async {
       book.id = documentReference.documentID;
       if (image != null) {
-        await _addNewImage(book, file: image).then((BookModel bookResponse) {
-          return bookResponse;
-        }).catchError((error) {
-          print(error);
-        });
+        BookModel bookResponse = await updateBookImage(book, file: image);
+        return bookResponse;
       }
       return book;
     }).catchError((onError) {
@@ -78,17 +75,6 @@ class BookFirebase implements IBookStorage {
       return url;
     } catch (error) {
       return throw Exception(error);
-    }
-  }
-
-  Future<BookModel> _addNewImage(BookModel book, {File file}) async {
-    if (file != null) {
-      await _sendImageToStorage(file, book).then((imageUrl) {
-        book.pictureUrl = imageUrl;
-        return book;
-      }).catchError((error) {
-        return throw Exception('erro ao carregar imagem');
-      });
     }
   }
 

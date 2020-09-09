@@ -173,7 +173,7 @@ class _CreateBookPageState extends State<CreateBookPage> {
       enable: enable,
     );
 
-    await _storage.createBook(bookRegister).then((BookModel bookResponse) {
+    await _storage.createBook(bookRegister, image: imageFile).then((BookModel bookResponse) {
       setState(() {
         widget.book = bookResponse;
       });
@@ -219,6 +219,20 @@ class _CreateBookPageState extends State<CreateBookPage> {
     }
   }
 
+  double getImageSize() {
+    double value = 100;
+    if (imageFile != null) {
+      value = MediaQuery.of(_globalKey.currentContext).size.width;
+    } else if (widget.book != null) {
+      if (widget.book.pictureUrl != null) {
+        if (widget.book.pictureUrl.isNotEmpty) {
+          value = MediaQuery.of(context).size.width;
+        }
+      }
+    }
+    return value;
+  }
+
   showDefaultMessage(String message) {
     SnackBar snackBar = SnackbarDefault().defaultMessage(message);
     _globalKey.currentState.showSnackBar(snackBar);
@@ -232,6 +246,29 @@ class _CreateBookPageState extends State<CreateBookPage> {
   showErrorMessage(String message) {
     SnackBar snackBar = SnackbarDefault().alertMessage(message);
     _globalKey.currentState.showSnackBar(snackBar);
+  }
+
+  Widget getImageWidget() {
+    if (imageFile != null) {
+      return Image(
+        width: getImageSize(),
+        image: FileImage(imageFile),
+      );
+    } else if (widget.book != null) {
+      if (widget.book.pictureUrl != null) {
+        if (widget.book.pictureUrl.isNotEmpty) {
+          return Image(
+            width: getImageSize(),
+            image: NetworkImage(widget.book.pictureUrl),
+          );
+        }
+      }
+    }
+
+    return Image(
+      width: getImageSize(),
+      image: AssetImage('assets/images/biblioteca.png'),
+    );
   }
 
   @override
@@ -298,14 +335,7 @@ class _CreateBookPageState extends State<CreateBookPage> {
                         ),
                       );
                     },
-                    child: Image(
-                      width: imageFile != null ? MediaQuery.of(context).size.width : 100,
-                      image: imageFile != null
-                          ? FileImage(
-                              imageFile,
-                            )
-                          : widget.book != null ? widget.book.pictureUrl.isNotEmpty ? AssetImage(widget.book.pictureUrl) : AssetImage('assets/images/biblioteca.png') : AssetImage('assets/images/biblioteca.png'),
-                    ),
+                    child: getImageWidget(),
                   ),
                 ),
                 SizedBox(height: 16),
