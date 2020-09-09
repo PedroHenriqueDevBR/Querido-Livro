@@ -35,6 +35,23 @@ class _ListBookPageState extends State<ListBookPage> {
     return percent;
   }
 
+  bool isUrlImageFromBook(BookModel book) {
+    if (book.pictureUrl == null) {
+      return false;
+    } else if (book.pictureUrl.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
+  String getAssetImageFromBook() {
+    return 'assets/images/livro.png';
+  }
+
+  String getUrlImageFromBook(BookModel book) {
+    return book.pictureUrl;
+  }
+
   @override
   void initState() {
     getBooksFromDatabase();
@@ -83,14 +100,21 @@ class _ListBookPageState extends State<ListBookPage> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width * 0.4,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        'https://images.pexels.com/photos/2102649/pexels-photo-2102649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                      ),
-                    ),
-                  ),
+                  child: isUrlImageFromBook(books[index])
+                      ? Image.network(
+                          getUrlImageFromBook(books[index]),
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                        )
+                      : Image.asset(
+                          getAssetImageFromBook(),
+                        ),
                 ),
                 Container(
                   padding: EdgeInsets.all(8),

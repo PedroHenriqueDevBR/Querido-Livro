@@ -19,7 +19,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   IPersonStorage _storage = PersonFirebase();
 
   changePage() {
-    var timer = Timer(Duration(seconds: 2), () {
+    Timer(Duration(milliseconds: 50), () {
       verifyLoggedUser();
     });
   }
