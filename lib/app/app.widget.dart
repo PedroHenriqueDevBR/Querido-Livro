@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meu_querido_livro/app/pages/HomePage/home.page.dart';
+import 'package:meu_querido_livro/app/pages/LoginPage/login.controller.dart';
 import 'package:meu_querido_livro/app/pages/LoginPage/login.page.dart';
 import 'package:meu_querido_livro/app/routes.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:asuka/asuka.dart' show builder;
+import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
   ColorPalette colorPalette = ColorPalette();
@@ -20,18 +22,25 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     changeNavigatorColor();
-    return MaterialApp(
-      title: 'Meu Querido Livro',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.brown,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: myAppBarTheme(),
+    return MultiProvider(
+      providers: [
+        Provider<LoginController>.value(
+          value: LoginController(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Meu Querido Livro',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.brown,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          appBarTheme: myAppBarTheme(),
+        ),
+        home: LoginPage(),
+        builder: builder,
+        initialRoute: RouteWidget.SPLASH_ROUTE,
+        onGenerateRoute: RouteWidget.generateRoute,
       ),
-      home: LoginPage(),
-      builder: builder,
-      initialRoute: RouteWidget.SPLASH_ROUTE,
-      onGenerateRoute: RouteWidget.generateRoute,
     );
   }
 
