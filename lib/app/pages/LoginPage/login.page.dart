@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meu_querido_livro/app/interfaces/person_storage.interface.dart';
 import 'package:meu_querido_livro/app/pages/LoginPage/login.controller.dart';
-import 'package:meu_querido_livro/app/repositories/person.repository.dart';
-import 'package:meu_querido_livro/app/routes.dart';
-import 'package:meu_querido_livro/app/utils/color_palette.dart';
-import 'package:meu_querido_livro/app/utils/snackbar_default.dart';
-import 'package:meu_querido_livro/app/utils/string_text.dart';
 import 'package:meu_querido_livro/app/widgets/button_default.widget.dart';
 import 'package:meu_querido_livro/app/widgets/simple_input.widget.dart';
 import 'package:provider/provider.dart';
@@ -16,14 +10,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  StringText _stringText = StringText.changeTo(StringText.ENGLISH);
-  ColorPalette _colorPallete = new ColorPalette();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _bodyWidget() {
     return Consumer<LoginController>(
-      builder: (context, model, child) {
+      builder: (context, loginController, child) {
         return Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -48,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
             physics: BouncingScrollPhysics(),
             children: <Widget>[
               _headLoginInfoWidget(),
-              _cardLoginInputsWidget(model),
+              _cardLoginInputsWidget(),
             ],
           ),
         );
@@ -57,6 +43,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _headLoginInfoWidget() {
+    LoginController loginController = Provider.of<LoginController>(context);
+
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.45,
@@ -71,15 +59,17 @@ class _LoginPageState extends State<LoginPage> {
               image: AssetImage('assets/images/escola.png'),
             ),
             SizedBox(height: 16),
-            _textHeadLoginInfo(_stringText.fillInTheFields),
-            _textHeadLoginInfo(_stringText.wantToRegisterMessage),
+            _textHeadLoginInfoWidget(loginController.textReference.fillInTheFields),
+            _textHeadLoginInfoWidget(loginController.textReference.wantToRegisterMessage),
           ],
         ),
       ),
     );
   }
 
-  Widget _cardLoginInputsWidget(LoginController model) {
+  Widget _cardLoginInputsWidget() {
+    LoginController loginController = Provider.of<LoginController>(context);
+
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.55,
@@ -93,26 +83,26 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              _cardLoginInfo(),
+              _textCardLoginInfoWidget(),
               Column(
                 children: <Widget>[
                   SimpleInputWidget(
-                    model.txtLogin,
+                    loginController.txtLogin,
                     'E-mail',
                     bordered: true,
                   ),
                   SizedBox(height: 16),
                   SimpleInputWidget(
-                    model.txtPassword,
-                    _stringText.password,
+                    loginController.txtPassword,
+                    loginController.textReference.password,
                     isPassword: true,
                     bordered: true,
                   ),
                   SizedBox(height: 16),
-                  _loginButton(model),
+                  _loginButtonWidget(),
                 ],
               ),
-              _goToCreateUserPageButton(model),
+              _goToCreateUserPageButtonWidget(),
             ],
           ),
         ),
@@ -121,33 +111,35 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /* 
-  * auxiliary methods/widgets
+  * auxiliary widgets
   */
-  Widget _loginButton(LoginController model) {
+  Widget _loginButtonWidget() {
+    LoginController loginController = Provider.of<LoginController>(context);
     return ButtonDefaultWidget(
-      _stringText.enter,
+      loginController.textReference.enter,
       () {
-        model.loggon(context);
+        loginController.loggon(context);
       },
-      _colorPallete.secondColorDark,
+      loginController.colorPallete.secondColorDark,
     );
   }
 
-  Widget _goToCreateUserPageButton(LoginController model) {
+  Widget _goToCreateUserPageButtonWidget() {
+    LoginController loginController = Provider.of<LoginController>(context);
     return FlatButton(
       child: Text(
-        _stringText.wantToRegister,
+        loginController.textReference.wantToRegister,
         style: TextStyle(
           color: Colors.black,
         ),
       ),
       onPressed: () {
-        model.goToCreateUserPage(context);
+        loginController.goToCreateUserPage(context);
       },
     );
   }
 
-  Text _textHeadLoginInfo(String text) {
+  Text _textHeadLoginInfoWidget(String text) {
     return Text(
       text,
       textAlign: TextAlign.center,
@@ -158,9 +150,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Text _cardLoginInfo() {
+  Text _textCardLoginInfoWidget() {
+    LoginController loginController = Provider.of<LoginController>(context);
     return Text(
-      _stringText.loginPage,
+      loginController.textReference.loginPage,
       style: TextStyle(fontSize: 22),
     );
   }

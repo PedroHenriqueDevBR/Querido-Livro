@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meu_querido_livro/app/interfaces/person_storage.interface.dart';
 import 'package:meu_querido_livro/app/repositories/person.repository.dart';
 import 'package:meu_querido_livro/app/routes.dart';
+import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/snackbar_default.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
 import 'package:asuka/asuka.dart' as asuka;
@@ -10,7 +11,8 @@ class LoginController {
   TextEditingController txtLogin = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   IPersonStorage storage = PersonFirebase();
-  StringText stringText = StringText.changeTo(StringText.ENGLISH);
+  StringText textReference = StringText.changeTo(StringText.ENGLISH);
+  ColorPalette colorPallete = new ColorPalette();
 
   void goToCreateUserPage(BuildContext context) {
     Navigator.pushNamed(context, RouteWidget.REGISTER_USER_ROUTE);
@@ -25,11 +27,11 @@ class LoginController {
     String password = txtPassword.text;
 
     if (login.isEmpty) {
-      asuka.showSnackBar(SnackbarDefault().defaultMessage(stringText.enterMail));
+      asuka.showSnackBar(SnackbarDefault().defaultMessage(textReference.enterMail));
       return;
     }
     if (password.isEmpty) {
-      asuka.showSnackBar(SnackbarDefault().defaultMessage(stringText.enterPass));
+      asuka.showSnackBar(SnackbarDefault().defaultMessage(textReference.enterPass));
       return;
     }
     await storage.signin(login, password).then((response) {
@@ -38,13 +40,13 @@ class LoginController {
       print(error);
       String errorStr = error.toString();
       if (errorStr.contains('ERROR_INVALID_EMAIL')) {
-        asuka.showSnackBar(SnackbarDefault().defaultMessage(stringText.invalidEmail));
+        asuka.showSnackBar(SnackbarDefault().defaultMessage(textReference.invalidEmail));
       } else if (errorStr.contains('ERROR_USER_NOT_FOUND')) {
-        asuka.showSnackBar(SnackbarDefault().defaultMessage(stringText.invalidCredential));
+        asuka.showSnackBar(SnackbarDefault().defaultMessage(textReference.invalidCredential));
       } else if (errorStr.contains('ERROR_WRONG_PASSWORD')) {
-        asuka.showSnackBar(SnackbarDefault().defaultMessage(stringText.invalidCredential));
+        asuka.showSnackBar(SnackbarDefault().defaultMessage(textReference.invalidCredential));
       } else {
-        asuka.showSnackBar(SnackbarDefault().defaultMessage(stringText.internalError));
+        asuka.showSnackBar(SnackbarDefault().defaultMessage(textReference.internalError));
       }
     });
   }
