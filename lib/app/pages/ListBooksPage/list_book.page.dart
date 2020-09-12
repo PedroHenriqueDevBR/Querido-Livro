@@ -12,6 +12,14 @@ class ListBookPage extends StatefulWidget {
 
 class _ListBookPageState extends State<ListBookPage> {
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<ListBookController>(context, listen: false).getBooksFromDatabase();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _bodyWidget(),

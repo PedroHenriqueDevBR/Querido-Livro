@@ -27,9 +27,12 @@ class ListBookController extends ChangeNotifier {
   }
 
   Future getBooksFromDatabase() async {
+    _initLoadBooks();
     PersonModel person = await _personStorage.getLoggedUser();
     List<BookModel> responseBook = await _storage.getUserBooks(person);
     books = responseBook;
+    notifyListeners();
+    _finishLoadBooks();
   }
 
   double getPercentPages(calc, total) {
