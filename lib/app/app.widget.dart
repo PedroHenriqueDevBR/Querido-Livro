@@ -5,6 +5,7 @@ import 'package:meu_querido_livro/app/pages/HomePage/home.controller.dart';
 import 'package:meu_querido_livro/app/pages/ListBooksPage/list_book.controller.dart';
 import 'package:meu_querido_livro/app/pages/LoginPage/login.controller.dart';
 import 'package:meu_querido_livro/app/pages/LoginPage/login.page.dart';
+import 'package:meu_querido_livro/app/pages/UserConfigurationsPage/user_configurations.controller.dart';
 import 'package:meu_querido_livro/app/pages/UserRegisterPage/user_register.controlelr.dart';
 import 'package:meu_querido_livro/app/routes.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
@@ -32,6 +33,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<HomeController>.value(value: HomeController()),
         ChangeNotifierProvider<ListBookController>.value(value: ListBookController()),
         ChangeNotifierProvider<CreateBookController>.value(value: CreateBookController()),
+        ChangeNotifierProvider<UserConfigurationsController>.value(value: UserConfigurationsController()),
       ],
       child: MaterialApp(
         title: 'Meu Querido Livro',

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meu_querido_livro/app/interfaces/person_storage.interface.dart';
 import 'package:meu_querido_livro/app/pages/DashboardPage/dashboard.page.dart';
 import 'package:meu_querido_livro/app/pages/ListBooksPage/list_book.page.dart';
-import 'package:meu_querido_livro/app/pages/PersonConfigurationsPage/person_configurations.page.dart';
+import 'package:meu_querido_livro/app/pages/UserConfigurationsPage/user_configurations.page.dart';
 import 'package:meu_querido_livro/app/repositories/person.repository.dart';
 import 'package:meu_querido_livro/app/routes.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
@@ -15,7 +15,7 @@ class HomeController extends ChangeNotifier {
   List<Widget> pages = [
     DashboardPage(),
     ListBookPage(),
-    PersonConfigurationsPage(),
+    UserConfigurationsPage(),
   ];
 
   IPersonStorage _personStorage = PersonFirebase();
