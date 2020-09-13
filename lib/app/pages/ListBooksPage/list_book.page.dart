@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meu_querido_livro/app/models/book.model.dart';
+import 'package:meu_querido_livro/app/pages/CreateBookPage/create_book.controller.dart';
 import 'package:meu_querido_livro/app/pages/CreateBookPage/create_book.page.dart';
 import 'package:meu_querido_livro/app/pages/ListBooksPage/list_book.controller.dart';
 import 'package:meu_querido_livro/app/routes.dart';
@@ -15,6 +16,7 @@ class _ListBookPageState extends State<ListBookPage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ListBookController>(context, listen: false).getBooksFromDatabase();
+      Provider.of<CreateBookController>(context, listen: false).currentBook = null;
     });
     super.initState();
   }
@@ -78,7 +80,7 @@ class _ListBookPageState extends State<ListBookPage> {
       icon: Icon(Icons.add),
       label: Text('Adicionar'),
       onPressed: () {
-        Navigator.pushNamed(context, RouteWidget.CREATE_BOOK_ROUTE);
+        Navigator.pushNamed(context, RouteWidget.CREATE_BOOK_ROUTE, arguments: null);
       },
     );
   }

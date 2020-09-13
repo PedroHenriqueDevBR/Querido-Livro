@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:meu_querido_livro/app/pages/CreateBookPage/create_book.controller.dart';
 import 'package:meu_querido_livro/app/pages/HomePage/home.controller.dart';
 import 'package:meu_querido_livro/app/pages/ListBooksPage/list_book.controller.dart';
 import 'package:meu_querido_livro/app/pages/LoginPage/login.controller.dart';
@@ -30,6 +31,7 @@ class App extends StatelessWidget {
         Provider<UserRegisterController>.value(value: UserRegisterController()),
         ChangeNotifierProvider<HomeController>.value(value: HomeController()),
         ChangeNotifierProvider<ListBookController>.value(value: ListBookController()),
+        ChangeNotifierProvider<CreateBookController>.value(value: CreateBookController()),
       ],
       child: MaterialApp(
         title: 'Meu Querido Livro',
