@@ -15,6 +15,7 @@ class ListBookController extends ChangeNotifier {
   IBookStorage _storage = BookFirebase();
   IPersonStorage _personStorage = PersonFirebase();
   bool loadedBooks = true;
+  bool _firstInstance = true;
 
   _finishLoadBooks() {
     loadedBooks = true;
@@ -27,12 +28,17 @@ class ListBookController extends ChangeNotifier {
   }
 
   Future getBooksFromDatabase() async {
-    _initLoadBooks();
-    PersonModel person = await _personStorage.getLoggedUser();
-    List<BookModel> responseBook = await _storage.getUserBooks(person);
-    books = responseBook;
-    notifyListeners();
-    _finishLoadBooks();
+    if (_firstInstance) {
+      _initLoadBooks();
+      PersonModel person = await _personStorage.getLoggedUser();
+      List<BookModel> responseBook = await _storage.getUserBooks(person);
+      books = responseBook;
+      _firstInstance = false;
+      notifyListeners();
+      _finishLoadBooks();
+    } else {
+      notifyListeners();
+    }
   }
 
   double getPercentPages(calc, total) {

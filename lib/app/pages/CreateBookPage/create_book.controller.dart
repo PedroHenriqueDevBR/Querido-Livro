@@ -6,6 +6,7 @@ import 'package:meu_querido_livro/app/interfaces/book_storage.interface.dart';
 import 'package:meu_querido_livro/app/interfaces/person_storage.interface.dart';
 import 'package:meu_querido_livro/app/models/book.model.dart';
 import 'package:meu_querido_livro/app/models/person.model.dart';
+import 'package:meu_querido_livro/app/pages/ListBooksPage/list_book.controller.dart';
 import 'package:meu_querido_livro/app/repositories/book.repository.dart';
 import 'package:meu_querido_livro/app/repositories/person.repository.dart';
 import 'package:meu_querido_livro/app/services/edit_image.service.dart';
@@ -13,7 +14,7 @@ import 'package:meu_querido_livro/app/services/get_image.service.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/snackbar_default.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
-import 'package:meu_querido_livro/app/widgets/button_default.widget.dart';
+import 'package:provider/provider.dart';
 
 class CreateBookController extends ChangeNotifier {
   StringText textReference = StringText.changeTo(StringText.ENGLISH);
@@ -53,41 +54,7 @@ class CreateBookController extends ChangeNotifier {
   }
 
   void getImage() async {
-    asuka.showBottomSheet(
-      (context) => Padding(
-        padding: EdgeInsets.all(16),
-        child: Wrap(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Text(
-                  'Selecionar a image da:',
-                  style: TextStyle(color: Colors.white),
-                ),
-                SizedBox(height: 16),
-                ButtonDefaultWidget('Câmera', () {
-                  getCameraImage();
-                  Navigator.pop(context);
-                }, colorPalette.secondColor),
-                SizedBox(height: 16),
-                ButtonDefaultWidget('Galeria', () {
-                  getGalleryImage();
-                  Navigator.pop(context);
-                }, colorPalette.secondColor),
-                SizedBox(height: 16),
-                Text(
-                  'Arraste para baixo para cancelar:',
-                  style: TextStyle(color: Colors.white),
-                ),
-                SizedBox(height: 16),
-              ],
-            ),
-          ],
-        ),
-      ),
-      backgroundColor: colorPalette.primaryColor,
-      elevation: 6,
-    );
+    getGalleryImage();
   }
 
   void editImage() async {
@@ -103,7 +70,7 @@ class CreateBookController extends ChangeNotifier {
     }
   }
 
-  void reserImageData() {
+  void resetImageData() {
     imageFile = null;
     if (currentBook != null) {
       currentBook.pictureUrl = null;
@@ -186,8 +153,8 @@ class CreateBookController extends ChangeNotifier {
     currentBook.enable = enable;
 
     await _storage.updateBookImage(currentBook, file: imageFile).then((BookModel bookResponse) {
-      notifyListeners();
       currentBook = bookResponse;
+      notifyListeners();
       showSuccessMessage('Atualizado com sucesso!');
     }).catchError((error) {
       showErrorMessage('Ocorreu um erro ao registrar livro');

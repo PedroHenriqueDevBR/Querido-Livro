@@ -46,7 +46,7 @@ class _CreateBookPageState extends State<CreateBookPage> {
             style: TextStyle(color: createBookController.colorPalette.lightColor),
           ),
           onPressed: () {
-            createBookController.reserImageData();
+            createBookController.resetImageData();
           },
         ),
       ],
