@@ -4,6 +4,7 @@ import 'package:meu_querido_livro/app/interfaces/person_storage.interface.dart';
 import 'package:meu_querido_livro/app/models/person.model.dart';
 import 'package:meu_querido_livro/app/repositories/person.repository.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
+import 'package:meu_querido_livro/app/utils/images_name.dart';
 import 'package:meu_querido_livro/app/utils/snackbar_default.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
 import 'package:asuka/asuka.dart' as asuka;
@@ -11,6 +12,7 @@ import 'package:asuka/asuka.dart' as asuka;
 class UserConfigurationsController extends ChangeNotifier {
   ColorPalette colorPalette = new ColorPalette();
   StringText textReference = new StringText.changeTo(StringText.ENGLISH);
+  ImagesName imagesName = ImagesName();
 
   TextEditingController txtName = TextEditingController();
   TextEditingController txtDescription = TextEditingController();

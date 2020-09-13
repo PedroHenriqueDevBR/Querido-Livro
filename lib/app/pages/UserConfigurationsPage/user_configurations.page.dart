@@ -54,7 +54,7 @@ class _UserConfigurationsPageState extends State<UserConfigurationsPage> {
                 height: 75,
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/livro.png'),
+                  backgroundImage: AssetImage(userConfigurationsController.imagesName.dwarf),
                 ),
               ),
               Expanded(
@@ -72,7 +72,7 @@ class _UserConfigurationsPageState extends State<UserConfigurationsPage> {
             ],
           ),
           SizedBox(height: 16),
-          _qrCodeCardWidget(),
+          // _qrCodeCardWidget(),
         ],
       ),
       decoration: BoxDecoration(
@@ -80,12 +80,12 @@ class _UserConfigurationsPageState extends State<UserConfigurationsPage> {
         boxShadow: [
           BoxShadow(
             color: userConfigurationsController.colorPalette.primaryColor,
-            blurRadius: 8.0,
+            blurRadius: 1.0,
           )
         ],
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.elliptical(100, 50),
-          bottomRight: Radius.elliptical(100, 50),
+          bottomLeft: Radius.elliptical(20, 20),
+          bottomRight: Radius.elliptical(20, 20),
         ),
       ),
     );
@@ -95,6 +95,13 @@ class _UserConfigurationsPageState extends State<UserConfigurationsPage> {
     UserConfigurationsController userConfigurationsController = Provider.of<UserConfigurationsController>(context);
     return Column(
       children: <Widget>[
+        Text(
+          'Dados Pessoais',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(height: 20),
         SimpleInputWidget(
           userConfigurationsController.txtName,
           'Nome completo',

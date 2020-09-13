@@ -38,6 +38,7 @@ flutter:
     - assets/images/splash-imge.jpeg
     - assets/images/biblioteca.png
     - assets/images/livro.png
+    - assets/images/anao.png
 
   # fonts:
   #   - family: Schyler
