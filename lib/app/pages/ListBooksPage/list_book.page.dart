@@ -41,16 +41,44 @@ class _ListBookPageState extends State<ListBookPage> {
     );
   }
 
-  ListView _listAllBooksWidget() {
-    ListBookController bookController = Provider.of<ListBookController>(context);
-    return ListView.builder(
-      physics: BouncingScrollPhysics(),
-      padding: EdgeInsets.all(8),
-      itemCount: BookSingleton.instance.books.length,
-      itemBuilder: (context, index) {
-        return _bookItemWidget(BookSingleton.instance.books[index]);
-      },
-    );
+  Widget _listAllBooksWidget() {
+    List<BookModel> books = BookSingleton.instance.books;
+    if (books.length == 0) {
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Opacity(
+              opacity: 0.3,
+              child: Image.asset(
+                'assets/images/livro.png',
+                height: 200,
+                colorBlendMode: BlendMode.colorBurn,
+              ),
+            ),
+            SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'Mantenha o hábito da leitura, que tal adicionar um livro e começar a ler hoje mesmo?',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return ListView.builder(
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.all(8),
+        itemCount: BookSingleton.instance.books.length,
+        itemBuilder: (context, index) {
+          return _bookItemWidget(BookSingleton.instance.books[index]);
+        },
+      );
+    }
   }
 
   Widget _bookItemWidget(BookModel book) {

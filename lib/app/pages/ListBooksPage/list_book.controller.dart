@@ -35,7 +35,6 @@ class ListBookController extends ChangeNotifier {
       notifyListeners();
       _finishLoadBooks();
     } else {
-      // books = BookSingleton.instance.books;
       notifyListeners();
     }
   }
