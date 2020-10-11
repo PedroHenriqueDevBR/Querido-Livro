@@ -6,15 +6,14 @@ import 'package:meu_querido_livro/app/interfaces/book_storage.interface.dart';
 import 'package:meu_querido_livro/app/interfaces/person_storage.interface.dart';
 import 'package:meu_querido_livro/app/models/book.model.dart';
 import 'package:meu_querido_livro/app/models/person.model.dart';
-import 'package:meu_querido_livro/app/pages/ListBooksPage/list_book.controller.dart';
 import 'package:meu_querido_livro/app/repositories/book.repository.dart';
 import 'package:meu_querido_livro/app/repositories/person.repository.dart';
 import 'package:meu_querido_livro/app/services/edit_image.service.dart';
 import 'package:meu_querido_livro/app/services/get_image.service.dart';
+import 'package:meu_querido_livro/app/singleton/book.singleton.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/snackbar_default.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
-import 'package:provider/provider.dart';
 
 class CreateBookController extends ChangeNotifier {
   StringText textReference = StringText.changeTo(StringText.ENGLISH);
@@ -37,13 +36,6 @@ class CreateBookController extends ChangeNotifier {
   Future<String> getLoggedUser() async {
     PersonModel person = await _personStorage.getLoggedUser();
     return person.id;
-  }
-
-  Future getCameraImage() async {
-    File receiveImage;
-    receiveImage = await _getImageService.getImageFromCamera();
-    imageFile = receiveImage;
-    notifyListeners();
   }
 
   Future getGalleryImage() async {
@@ -128,13 +120,16 @@ class CreateBookController extends ChangeNotifier {
       enable: enable,
     );
 
-    await _storage.createBook(bookRegister, image: imageFile).then((BookModel bookResponse) {
+    try {
+      BookModel bookResponse = await _storage.createBook(bookRegister, image: imageFile);
       currentBook = bookResponse;
+      addToSingletonBook(bookResponse);
       notifyListeners();
       showSuccessMessage('Cadastrado com sucesso!');
-    }).catchError((error) {
-      showErrorMessage('Ocorreu um erro ao registrar livro');
-    });
+    } catch(error) {
+      print(error);
+      return throw Exception('Erro ao cadastrar livro');
+    }
   }
 
   Future updateBook() async {
@@ -153,6 +148,7 @@ class CreateBookController extends ChangeNotifier {
     currentBook.enable = enable;
 
     await _storage.updateBookImage(currentBook, file: imageFile).then((BookModel bookResponse) {
+      updateToSingletonBook(currentBook, bookResponse);
       currentBook = bookResponse;
       notifyListeners();
       showSuccessMessage('Atualizado com sucesso!');
@@ -164,6 +160,7 @@ class CreateBookController extends ChangeNotifier {
   Future deleteBook(BuildContext context) async {
     if (currentBook != null) {
       _storage.deleteBook(currentBook).then((_) {
+        removeToSingletonBook(currentBook);
         Navigator.pop(context);
       });
     } else {
@@ -205,6 +202,18 @@ class CreateBookController extends ChangeNotifier {
       }
     }
     return value;
+  }
+
+  void addToSingletonBook(BookModel book) {
+    BookSingleton.instance.addBook(book);
+  }
+
+  void removeToSingletonBook(BookModel book) {
+    BookSingleton.instance.removeBook(book);
+  }
+
+  void updateToSingletonBook(BookModel bookBase, BookModel bookUpdate) {
+    BookSingleton.instance.updateBook(bookBase, bookUpdate);
   }
 
   showDefaultMessage(String message) {

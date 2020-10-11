@@ -31,26 +31,28 @@ class BookFirebase implements IBookStorage {
   }
 
   Future<BookModel> createBook(BookModel book, {File image = null}) async {
-    await _firestore.collection(_constants.BOOK_DATABASE).add(book.toJson()).then((DocumentReference documentReference) async {
+    try {
+      DocumentReference documentReference = await _firestore.collection(_constants.BOOK_DATABASE).add(book.toJson());
       book.id = documentReference.documentID;
       if (image != null) {
         BookModel bookResponse = await updateBookImage(book, file: image);
         return bookResponse;
       }
       return book;
-    }).catchError((onError) {
-      print(onError);
-      return throw Exception(onError);
-    });
+    } catch(error) {
+      print(error);
+      return throw Exception(error);
+    }
   }
 
   Future<BookModel> updateBook(BookModel book) async {
-    await _firestore.collection(_constants.BOOK_DATABASE).document(book.id).setData(book.toJson()).then((_) {
+    try {
+      var response = await _firestore.collection(_constants.BOOK_DATABASE).document(book.id).setData(book.toJson());
       return book;
-    }).catchError((onError) {
-      print(onError);
-      return throw Exception(onError);
-    });
+    } catch(error) {
+      print(error);
+      return throw Exception(error);
+    }
   }
 
   Future deleteBook(BookModel book) async {

@@ -10,7 +10,7 @@ import 'package:asuka/asuka.dart' as asuka;
 class LoginController {
   TextEditingController txtLogin = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
-  IPersonStorage storage = PersonFirebase();
+  IPersonStorage personStorage = PersonFirebase();
   StringText textReference = StringText.changeTo(StringText.ENGLISH);
   ColorPalette colorPallete = new ColorPalette();
 
@@ -34,7 +34,7 @@ class LoginController {
       asuka.showSnackBar(SnackbarDefault().defaultMessage(textReference.enterPass));
       return;
     }
-    await storage.signin(login, password).then((response) {
+    await personStorage.signin(login, password).then((response) {
       goToHomePage(context);
     }).catchError((error) {
       print(error);

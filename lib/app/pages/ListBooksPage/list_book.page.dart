@@ -4,6 +4,7 @@ import 'package:meu_querido_livro/app/pages/CreateBookPage/create_book.controlle
 import 'package:meu_querido_livro/app/pages/CreateBookPage/create_book.page.dart';
 import 'package:meu_querido_livro/app/pages/ListBooksPage/list_book.controller.dart';
 import 'package:meu_querido_livro/app/routes.dart';
+import 'package:meu_querido_livro/app/singleton/book.singleton.dart';
 import 'package:provider/provider.dart';
 
 class ListBookPage extends StatefulWidget {
@@ -45,9 +46,9 @@ class _ListBookPageState extends State<ListBookPage> {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.all(8),
-      itemCount: bookController.books.length,
+      itemCount: BookSingleton.instance.books.length,
       itemBuilder: (context, index) {
-        return _bookItemWidget(bookController.books[index]);
+        return _bookItemWidget(BookSingleton.instance.books[index]);
       },
     );
   }
@@ -80,7 +81,9 @@ class _ListBookPageState extends State<ListBookPage> {
       icon: Icon(Icons.add),
       label: Text('Adicionar'),
       onPressed: () {
-        Navigator.pushNamed(context, RouteWidget.CREATE_BOOK_ROUTE, arguments: null);
+        Navigator.pushNamed(context, RouteWidget.CREATE_BOOK_ROUTE, arguments: null).then((_) {
+          bookController.getBooksFromDatabase();
+        });
       },
     );
   }
@@ -92,7 +95,7 @@ class _ListBookPageState extends State<ListBookPage> {
     ListBookController bookController = Provider.of<ListBookController>(context);
     return ListTile(
       title: Text(
-        book.name,
+        book.name != null ? book.name : '',
         style: TextStyle(fontWeight: FontWeight.w500),
       ),
       trailing: IconButton(

@@ -25,15 +25,19 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   }
 
   Future verifyLoggedUser() async {
-    await _storage.getLoggedUser().then((PersonModel person) {
+    try {
+      PersonModel person = await _storage.getLoggedUser();
+      print('Person detail');
+      print(person.toString());
       if (person.id != null) {
         Navigator.pushReplacementNamed(context, RouteWidget.HOME_ROUTE);
       } else {
         Navigator.pushReplacementNamed(context, RouteWidget.LOGIN_ROUTE);
       }
-    }).catchError(((onError) {
+    } catch(error) {
+      print(error);
       Navigator.pushReplacementNamed(context, RouteWidget.LOGIN_ROUTE);
-    }));
+    }
   }
 
   @override

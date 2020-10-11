@@ -5,17 +5,16 @@ import 'package:meu_querido_livro/app/models/book.model.dart';
 import 'package:meu_querido_livro/app/models/person.model.dart';
 import 'package:meu_querido_livro/app/repositories/book.repository.dart';
 import 'package:meu_querido_livro/app/repositories/person.repository.dart';
+import 'package:meu_querido_livro/app/singleton/book.singleton.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
 
 class ListBookController extends ChangeNotifier {
-  List<BookModel> books = [];
   ColorPalette colorPalette = new ColorPalette();
   StringText textReferences = new StringText.changeTo(StringText.ENGLISH);
   IBookStorage _storage = BookFirebase();
   IPersonStorage _personStorage = PersonFirebase();
   bool loadedBooks = true;
-  bool _firstInstance = true;
 
   _finishLoadBooks() {
     loadedBooks = true;
@@ -28,15 +27,15 @@ class ListBookController extends ChangeNotifier {
   }
 
   Future getBooksFromDatabase() async {
-    if (_firstInstance) {
+    if (BookSingleton.instance.hasChange()) {
       _initLoadBooks();
       PersonModel person = await _personStorage.getLoggedUser();
       List<BookModel> responseBook = await _storage.getUserBooks(person);
-      books = responseBook;
-      _firstInstance = false;
+      BookSingleton.instance.books = responseBook;
       notifyListeners();
       _finishLoadBooks();
     } else {
+      // books = BookSingleton.instance.books;
       notifyListeners();
     }
   }
