@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meu_querido_livro/app/pages/CreateBookPage/create_book.page.dart';
 import 'package:meu_querido_livro/app/pages/HomePage/home.page.dart';
 import 'package:meu_querido_livro/app/pages/LoginPage/login.page.dart';
+import 'package:meu_querido_livro/app/pages/SelectLanguagePage/select_language.page.dart';
 import 'package:meu_querido_livro/app/pages/SplashScreenPage/splash_screen.page.dart';
 import 'package:meu_querido_livro/app/pages/UserRegisterPage/user_register.page.dart';
 
@@ -11,6 +12,7 @@ class RouteWidget {
   static const String LOGIN_ROUTE = '/login_route';
   static const String REGISTER_USER_ROUTE = '/register_user_route';
   static const String CREATE_BOOK_ROUTE = '/create_book_route';
+  static const String SELECT_LANGUAGE_ROUTE = '/select_language_route';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     dynamic args = settings.arguments;
@@ -36,6 +38,11 @@ class RouteWidget {
         return MaterialPageRoute(
           settings: RouteSettings(arguments: args),
           builder: (context) => CreateBookPage(),
+        );
+      case SELECT_LANGUAGE_ROUTE:
+        return MaterialPageRoute(
+          settings: RouteSettings(arguments: args),
+          builder: (context) => SelectLanguagePage(),
         );
       default:
         return MaterialPageRoute(

@@ -1,6 +1,7 @@
 class StringText {
   static String ENGLISH = 'english';
   static String DEFAULT = 'default';
+  static String LANGUAGE = 'language';
 
   // General
   String appName = 'Querido Livro';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meu_querido_livro/app/pages/HomePage/home.controller.dart';
+import 'package:meu_querido_livro/app/pages/SelectLanguagePage/select_language.page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,12 +45,19 @@ class _HomePageState extends State<HomePage> {
             PopupMenuItem(
               value: 1,
               child: Text('Deslogar'),
-              height: 30,
+              height: 40,
+            ),
+            PopupMenuItem(
+              value: 2,
+              child: Text('Idioma'),
+              height: 40,
             ),
           ],
           onSelected: (int value) {
             if (value == 1) {
               homeController.logout(context);
+            } else if (value == 2) {
+              homeController.goToLanguage(context);
             }
           },
         ),

@@ -32,4 +32,8 @@ class HomeController extends ChangeNotifier {
     currentIndex = index;
     notifyListeners();
   }
+
+  void goToLanguage(BuildContext context) {
+    Navigator.pushNamed(context, RouteWidget.SELECT_LANGUAGE_ROUTE);
+  }
 }
