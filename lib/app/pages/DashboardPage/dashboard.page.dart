@@ -9,7 +9,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   ColorPalette _colorPalette = new ColorPalette();
-  StringText _stringText = new StringText.changeTo(StringText.ENGLISH);
+  StringText _stringText = new StringText.changeTo(StringText.DEFAULT);
 
   @override
   Widget build(BuildContext context) {

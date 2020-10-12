@@ -16,7 +16,7 @@ import 'package:meu_querido_livro/app/utils/snackbar_default.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
 
 class CreateBookController extends ChangeNotifier {
-  StringText textReference = StringText.changeTo(StringText.ENGLISH);
+  StringText textReference = StringText.changeTo(StringText.DEFAULT);
   ColorPalette colorPalette = ColorPalette();
   GetImageService _getImageService = GetImageService();
   EditImageService _editImageService = EditImageService();

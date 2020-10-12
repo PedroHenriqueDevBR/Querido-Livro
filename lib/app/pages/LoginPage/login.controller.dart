@@ -7,11 +7,11 @@ import 'package:meu_querido_livro/app/utils/snackbar_default.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
 import 'package:asuka/asuka.dart' as asuka;
 
-class LoginController {
+class LoginController extends ChangeNotifier {
   TextEditingController txtLogin = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   IPersonStorage personStorage = PersonFirebase();
-  StringText textReference = StringText.changeTo(StringText.ENGLISH);
+  StringText textReference = StringText.changeTo(StringText.DEFAULT);
   ColorPalette colorPallete = new ColorPalette();
 
   void goToCreateUserPage(BuildContext context) {

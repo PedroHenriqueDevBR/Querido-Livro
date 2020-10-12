@@ -10,7 +10,7 @@ import 'package:meu_querido_livro/app/utils/string_text.dart';
 
 class HomeController extends ChangeNotifier {
   ColorPalette colorPalette = new ColorPalette();
-  StringText textReference = new StringText.changeTo(StringText.ENGLISH);
+  StringText textReference = new StringText.changeTo(StringText.DEFAULT);
   int currentIndex = 0;
   List<Widget> pages = [
     DashboardPage(),

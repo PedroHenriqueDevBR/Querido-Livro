@@ -1,7 +1,6 @@
 class StringText {
-  static String ENGLISH = 'english';
+  // static String ENGLISH = 'english';
   static String DEFAULT = 'default';
-  static String LANGUAGE = 'language';
 
   // General
   String appName = 'Querido Livro';
@@ -48,50 +47,50 @@ class StringText {
   String noValue = 'Não especificado';
 
   StringText.changeTo(String language) {
-    if (language == ENGLISH) {
-      // General
-      this.appName = 'Dear Book';
-      this.dashboard = 'Dashboard';
-      this.borrowedBook = 'Borrowed';
-      this.receivedBook = 'Received';
-      this.loading = 'Loading';
-      this.internalError = 'An internal error has occurred, please try again later';
-      this.fillInTheFields = 'Fill in all fields';
-
-      // Login data
-      this.password = 'Password';
-      this.enter = 'Login';
-      this.enterMail = 'Enter your e-mail';
-      this.enterPass = 'Enter your password';
-      this.invalidEmail = 'Invalid e-mail';
-      this.invalidCredential = 'Invalid credential';
-      this.wantToRegisterMessage = 'If you are not registered, click on "I want to sign up"';
-      this.loginPage = 'Access page';
-      this.wantToRegister = 'I want to sign up';
-
-      // Create User data
-      this.verifyYourEmail = 'Check your email box to complete your registration';
-      this.differentEmails = 'Error: different emails';
-      this.createUser = 'Create new user';
-      this.name = 'Name';
-      this.confirmEmail = 'Confirm e-mail';
-      this.awaitEmail = 'After registration wait for the email.\nAn email will be sent requesting the creation of a password.';
-      this.register = 'Register';
-      this.goBack = 'Go back';
-
-      // Dashboard data
-      this.registered = 'Registered books';
-      this.reading = 'Reading';
-      this.borrowed = 'Borrowed book';
-      this.received = 'Received book';
-
-      // NavigationBar
-      this.home = 'Home';
-      this.books = 'Books';
-      this.profile = 'Profile';
-
-      // Model data
-      this.noValue = 'uninformed';
-    }
+    // if (language == ENGLISH) {
+    //   // General
+    //   this.appName = 'Dear Book';
+    //   this.dashboard = 'Dashboard';
+    //   this.borrowedBook = 'Borrowed';
+    //   this.receivedBook = 'Received';
+    //   this.loading = 'Loading';
+    //   this.internalError = 'An internal error has occurred, please try again later';
+    //   this.fillInTheFields = 'Fill in all fields';
+    //
+    //   // Login data
+    //   this.password = 'Password';
+    //   this.enter = 'Login';
+    //   this.enterMail = 'Enter your e-mail';
+    //   this.enterPass = 'Enter your password';
+    //   this.invalidEmail = 'Invalid e-mail';
+    //   this.invalidCredential = 'Invalid credential';
+    //   this.wantToRegisterMessage = 'If you are not registered, click on "I want to sign up"';
+    //   this.loginPage = 'Access page';
+    //   this.wantToRegister = 'I want to sign up';
+    //
+    //   // Create User data
+    //   this.verifyYourEmail = 'Check your email box to complete your registration';
+    //   this.differentEmails = 'Error: different emails';
+    //   this.createUser = 'Create new user';
+    //   this.name = 'Name';
+    //   this.confirmEmail = 'Confirm e-mail';
+    //   this.awaitEmail = 'After registration wait for the email.\nAn email will be sent requesting the creation of a password.';
+    //   this.register = 'Register';
+    //   this.goBack = 'Go back';
+    //
+    //   // Dashboard data
+    //   this.registered = 'Registered books';
+    //   this.reading = 'Reading';
+    //   this.borrowed = 'Borrowed book';
+    //   this.received = 'Received book';
+    //
+    //   // NavigationBar
+    //   this.home = 'Home';
+    //   this.books = 'Books';
+    //   this.profile = 'Profile';
+    //
+    //   // Model data
+    //   this.noValue = 'uninformed';
+    // }
   }
 }

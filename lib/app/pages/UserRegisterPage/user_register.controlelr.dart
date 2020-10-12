@@ -13,7 +13,7 @@ class UserRegisterController {
   TextEditingController txtRepeateEmail = TextEditingController();
   SnackbarDefault _snackbarDefault = SnackbarDefault();
   IPersonStorage _storage = PersonFirebase();
-  StringText textReference = StringText.changeTo(StringText.ENGLISH);
+  StringText textReference = StringText.changeTo(StringText.DEFAULT);
   ColorPalette colorPallete = new ColorPalette();
 
   Future createUser() async {

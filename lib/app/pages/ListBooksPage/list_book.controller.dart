@@ -11,7 +11,7 @@ import 'package:meu_querido_livro/app/utils/string_text.dart';
 
 class ListBookController extends ChangeNotifier {
   ColorPalette colorPalette = new ColorPalette();
-  StringText textReferences = new StringText.changeTo(StringText.ENGLISH);
+  StringText textReferences = new StringText.changeTo(StringText.DEFAULT);
   IBookStorage _storage = BookFirebase();
   IPersonStorage _personStorage = PersonFirebase();
   bool loadedBooks = true;

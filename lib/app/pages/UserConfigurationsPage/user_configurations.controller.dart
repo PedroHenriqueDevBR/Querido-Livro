@@ -11,7 +11,7 @@ import 'package:asuka/asuka.dart' as asuka;
 
 class UserConfigurationsController extends ChangeNotifier {
   ColorPalette colorPalette = new ColorPalette();
-  StringText textReference = new StringText.changeTo(StringText.ENGLISH);
+  StringText textReference = new StringText.changeTo(StringText.DEFAULT);
   ImagesName imagesName = ImagesName();
 
   TextEditingController txtName = TextEditingController();

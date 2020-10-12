@@ -14,7 +14,7 @@ class SplashScreenPage extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
-  StringText _stringText = StringText.changeTo(StringText.ENGLISH);
+  StringText _stringText = StringText.changeTo(StringText.DEFAULT);
   ColorPalette _colorPalette = ColorPalette();
   IPersonStorage _storage = PersonFirebase();
 

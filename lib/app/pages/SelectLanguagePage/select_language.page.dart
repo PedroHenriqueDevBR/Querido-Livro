@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meu_querido_livro/app/repositories/shared_preferences.repository.dart';
 import 'package:meu_querido_livro/app/utils/color_palette.dart';
 import 'package:meu_querido_livro/app/utils/string_text.dart';
 import 'package:meu_querido_livro/app/widgets/button_default.widget.dart';
@@ -13,7 +12,6 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
 
   ColorPalette _colorPalette = ColorPalette();
   String selectedLanguage;
-  SharedPreferencesRepository _pref = SharedPreferencesRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
       child: Column(
         children: [
           _itemLanguageContainer('assets/images/brasil.jpg', Colors.lightGreen, 'Português', StringText.DEFAULT),
-          _itemLanguageContainer('assets/images/usa.jpg', Colors.red, 'English', StringText.ENGLISH),
+          _itemLanguageContainer('assets/images/usa.jpg', Colors.red, 'English', StringText.DEFAULT),
           _confirmButton(),
         ],
       ),
@@ -76,7 +74,6 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
     return Container(
       color: _colorPalette.primaryColor,
       child: ButtonDefaultWidget('Confirmar: ${selectedLanguage != null ? selectedLanguage : ''}', () async {
-        await _pref.setLanguage(selectedLanguage);
         Navigator.pop(context);
       }, _colorPalette.primaryColor,),
     );

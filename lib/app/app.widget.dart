@@ -28,7 +28,7 @@ class App extends StatelessWidget {
     changeNavigatorColor();
     return MultiProvider(
       providers: [
-        Provider<LoginController>.value(value: LoginController()),
+        ChangeNotifierProvider<LoginController>.value(value: LoginController()),
         Provider<UserRegisterController>.value(value: UserRegisterController()),
         ChangeNotifierProvider<HomeController>.value(value: HomeController()),
         ChangeNotifierProvider<ListBookController>.value(value: ListBookController()),
