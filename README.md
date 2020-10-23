@@ -1,18 +1,82 @@
 
-<h1  align="center">Querido Livro (Dear Book) </h1>
+<h1  align="center">:orange_book: Querido Livro (Dear Book) </h1>
 
-## About the application
+<h3 align="center">
+    Application to register books.
+</h3>
+
+
+<h1 align="center">
+:construction: UDER DEVELOPMENT :construction:
+</h1>
+
+<p align="center">
+<img alt="Developer" src="https://img.shields.io/badge/Developer-PedroHenriqueDevBR-green">
+<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/pedrohenriquedevbr/Appetit-app">
+<img alt="Framework" src="https://img.shields.io/badge/Framework-Flutter-blue">
+<img alt="Framework" src="https://img.shields.io/badge/State_Manager-Provider-blue">
+</p>
+
+<hr>
+
+# :memo: Overview
 
 Application to register and loans books, that application has a simple architecture to resolve a simple problem.  
 
-### Tecnilogies
-<div style="display: flex; flex-direction: row; justify-content: space-around;">
- <img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/dart.jpg" />
- <img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/flutter.png" />
- <img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/firebase.png" />
-</div>
+# :rocket: Tecnilogies
 
-### Screenshots (sample)
+* <img alt="Dart" src="https://img.shields.io/badge/-Dart-blue"> - Linguagem de programação utilizada pelo Framework Flutter.
+* <img alt="Flutter" src="https://img.shields.io/badge/-Flutter-blue"> - Framework utilizado no desenvolvimento da aplicação.
+* <img alt="MobX" src="https://img.shields.io/badge/-MobX-blue"> - Biblioteca utilizada para facilitar a gerência de estado da aplicação.
+
+# :iphone: Screenshots (sample)
+
+<p>
+<img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print01.png" />
+<img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print02.png" />
+<img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print03.png" />
+</p>
+
+
+### Screen map
+
+<img width="100%" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/screenmap.png" />
+
+# :wrench: Install and Build
+
+## Install Instructions
+```bash
+# 1.  Clone or Download the repository:
+git clone https://github.com/PedroHenriqueDevBR/Querido-Livro.git
+ 
+# 2. Access the application folder and run the commands to run application:
+flutter pub get 
+
+# 3. Run application
+flutter run 
+```
+
+## Build Instructions
+
+```bash
+# 1.  Clone or Download the repository:
+git clone https://github.com/PedroHenriqueDevBR/Querido-Livro.git
+
+# 2. Run the commands to build application:
+flutter build apk 
+```
+
+# :heavy_check_mark: Features
+- [x] Authetication - Authentication user on Firebase Auth
+- [x] Register book - Register book on Cloud Firestore
+- [x] Register user - Regieter user on Firebase Auth
+- [x] Upload profile image - Upload user picture to Firebase Firestore
+
+## :no_entry_sign: Permissions
+* `INTERNET`: necessary to access the internet. 
+* `ACCESS_NETWORK_STATE`: used by the browser to stop loading resources when network access is lost.
+
+### :iphone: Screenshots (All screenshots)
 
 <div>
 Dashboard Page: 
@@ -24,49 +88,3 @@ List Books Page:
 Profile Configuration:
 <p><img width="255" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print03.png" /></p>
 </div>
-
-### Screen map
-
-<img width="100%" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/screenmap.png" />
-
-### Install and Build
-
-#### Install Instructions
-1.  Clone or Download the repository:
-	```bash
-	git clone https://github.com/PedroHenriqueDevBR/Querido-Livro.git
-	``` 
-2. Access the application folder and run the commands to run application:
-	```bash 
-	flutter pub get 
-	```
-	```bash
-	flutter run 
-	```
-
-#### Build Instructions
-
-1.  Clone or Download the repository:
-	```bash
-	git clone https://github.com/PedroHenriqueDevBR/Querido-Livro.git
-	```
-
-3. Run the commands to build application:
-	```bash
-	flutter build apk 
-	```
-
-## Features
-* Authetication - Authentication user on Firebase Auth
-* Register book - Register book on Cloud Firestore
-* Register user - Regieter user on Firebase Auth
-* Upload profile image - Upload user picture to Firebase Firestore
-* Generate a QrCode with your user id
-* Search user with qrcode - Add new friend user on your profile
-* lend book - lend book to friend
-
-## Permissions
-* `INTERNET`: necessary to access the internet. 
-* `ACCESS_NETWORK_STATE`: used by the browser to stop loading resources when network access is lost.
-
-### Screenshots (All screenshots)
