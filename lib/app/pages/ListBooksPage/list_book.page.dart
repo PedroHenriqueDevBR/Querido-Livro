@@ -82,21 +82,36 @@ class _ListBookPageState extends State<ListBookPage> {
   }
 
   Widget _bookItemWidget(BookModel book) {
-    return Card(
-      margin: EdgeInsets.only(bottom: 16),
-      elevation: 8,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          _bookItemHeaderWidget(book),
-          _bookItemImageWidget(book),
-          _bookItemInfoWidget(book),
-          _bookItemPercentWidget(book),
-        ],
+    ListBookController bookController = Provider.of<ListBookController>(context);
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CreateBookPage(
+              book: book,
+            ),
+          ),
+        ).then((_) {
+          bookController.getBooksFromDatabase();
+        });
+      },
+      child: Card(
+        margin: EdgeInsets.only(bottom: 16),
+        elevation: 8,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            _bookItemHeaderWidget(book),
+            _bookItemImageWidget(book),
+            _bookItemInfoWidget(book),
+            _bookItemPercentWidget(book),
+          ],
+        ),
       ),
     );
   }
@@ -125,21 +140,6 @@ class _ListBookPageState extends State<ListBookPage> {
       title: Text(
         book.name != null ? book.name : '',
         style: TextStyle(fontWeight: FontWeight.w500),
-      ),
-      trailing: IconButton(
-        icon: Icon(Icons.edit),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CreateBookPage(
-                book: book,
-              ),
-            ),
-          ).then((_) {
-            bookController.getBooksFromDatabase();
-          });
-        },
       ),
     );
   }
