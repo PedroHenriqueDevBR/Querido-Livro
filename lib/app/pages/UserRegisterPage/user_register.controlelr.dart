@@ -10,7 +10,7 @@ import 'package:asuka/asuka.dart' as asuka;
 class UserRegisterController {
   TextEditingController txtName = TextEditingController();
   TextEditingController txtEmail = TextEditingController();
-  TextEditingController txtRepeateEmail = TextEditingController();
+  TextEditingController txtpass = TextEditingController();
   SnackbarDefault _snackbarDefault = SnackbarDefault();
   IPersonStorage _storage = PersonFirebase();
   StringText textReference = StringText.changeTo(StringText.DEFAULT);
@@ -20,9 +20,7 @@ class UserRegisterController {
     if (validForm()) {
       PersonModel person = PersonModel.create(txtName.text, '');
       person.email = txtEmail.text;
-      DateTime datetime = DateTime.now();
-      String key = '${txtEmail.text}${datetime.microsecond.toString()}'.replaceAll(' ', '');
-      person.password = key;
+      person.password = txtpass.text;
       await _storage.createUser(person).then((response) async {
         _showMessage(textReference.verifyYourEmail);
         _clearFields();
@@ -36,13 +34,10 @@ class UserRegisterController {
   bool validForm() {
     String name = txtName.text;
     String email = txtEmail.text;
-    String repeateEmail = txtRepeateEmail.text;
 
-    if (name.isEmpty || email.isEmpty || repeateEmail.isEmpty) {
+    if (name.isEmpty || email.isEmpty) {
       _showMessage(textReference.fillInTheFields);
       return false;
-    } else if (email != repeateEmail) {
-      _showMessage(textReference.differentEmails);
     }
     return true;
   }
@@ -52,8 +47,8 @@ class UserRegisterController {
   }
 
   _clearFields() {
-    txtName.text = '';
-    txtEmail.text = '';
-    txtRepeateEmail.text = '';
+    txtName.clear();
+    txtEmail.clear();
+    txtpass.clear();
   }
 }

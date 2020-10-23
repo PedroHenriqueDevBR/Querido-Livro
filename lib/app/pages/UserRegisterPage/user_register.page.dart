@@ -123,9 +123,10 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
         ),
         SizedBox(height: 16),
         SimpleInputWidget(
-          userRegisterController.txtRepeateEmail,
-          userRegisterController.textReference.confirmEmail,
+          userRegisterController.txtpass,
+          userRegisterController.textReference.password,
           bordered: true,
+          isPassword: true,
         ),
         SizedBox(height: 16),
         Padding(

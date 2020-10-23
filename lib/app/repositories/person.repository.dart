@@ -20,8 +20,7 @@ class PersonFirebase implements IPersonStorage {
           .createUserWithEmailAndPassword(
         email: person.email,
         password: person.password,
-      )
-          .then((value) async {
+      ).then((value) async {
         await createUserData(person).then((value) {
           return true;
         });
@@ -39,9 +38,7 @@ class PersonFirebase implements IPersonStorage {
         String id = value.uid;
         if (id != null) {
           _firestore.collection(_constants.PERSON_DATABASE).document(id).setData(person.toJson());
-          await updatePassword(person).then((_) {
-            return true;
-          });
+          return true;
         } else {
           return throw Exception('Erro ao cadastrar usuário entre em contato com o desenvolvedor');
         }
