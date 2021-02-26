@@ -23,7 +23,7 @@
 
 Application to register and loans books, that application has a simple architecture to resolve a simple problem.  
 
-# :rocket: Tecnilogies
+# :rocket: Tecnologies
 
 * <img alt="Dart" src="https://img.shields.io/badge/-Dart-blue"> - Linguagem de programação utilizada pelo Framework Flutter.
 * <img alt="Flutter" src="https://img.shields.io/badge/-Flutter-blue"> - Framework utilizado no desenvolvimento da aplicação.
@@ -32,15 +32,15 @@ Application to register and loans books, that application has a simple architect
 # :iphone: Screenshots (sample)
 
 <p>
-<img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print01.png" />
-<img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print02.png" />
-<img width="200" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print03.png" />
+<img width="200" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/Querido-Livro/master/docs/generate/print01.png" />
+<img width="200" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/Querido-Livro/master/docs/generate/print02.png" />
+<img width="200" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/Querido-Livro/master/docs/generate/print03.png" />
 </p>
 
 
 ### Screen map
 
-<img width="100%" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/screenmap.png" />
+<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/Querido-Livro/master/docs/generate/screenmap.png" />
 
 # :wrench: Install and Build
 
@@ -80,11 +80,11 @@ flutter build apk
 
 <div>
 Dashboard Page: 
-<p><img width="255" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print01.png" /></p>
+<p><img width="255" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/Querido-Livro/master/docs/generate/print01.png" /></p>
 
 List Books Page:
-<p><img width="255" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print02.png" /></p>
+<p><img width="255" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/Querido-Livro/master/docs/generate/print02.png" /></p>
 
 Profile Configuration:
-<p><img width="255" src="https://github.com/PedroHenriqueDevBR/Querido-Livro/blob/master/docs/generate/print03.png" /></p>
+<p><img width="255" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/Querido-Livro/master/docs/generate/print03.png" /></p>
 </div>
